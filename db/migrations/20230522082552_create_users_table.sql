@@ -2,6 +2,7 @@
 CREATE TABLE users (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(200) NOT NULL UNIQUE,
+    kakao_id BIGINT NULL,
     password VARCHAR(200) NOT NULL,
     name VARCHAR(100) NOT NULL,
     profile_image TEXT NULL,

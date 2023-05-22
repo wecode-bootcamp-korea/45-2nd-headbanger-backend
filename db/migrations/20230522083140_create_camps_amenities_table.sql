@@ -8,3 +8,4 @@ CREATE TABLE camps_amenities (
 ) 
 
 -- migrate:down
+DROP TABLE camps_amenities;
