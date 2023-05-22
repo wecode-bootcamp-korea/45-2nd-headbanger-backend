@@ -5,6 +5,6 @@ CREATE TABLE camps_amenities (
     amenity_id INT NOT NULL,
     FOREIGN KEY (camp_id) REFERENCES camps (id),
     FOREIGN KEY (amenity_id) REFERENCES amenities (id)
-)
+) 
 
 -- migrate:down
