@@ -7,13 +7,13 @@ const createUsers = (userList) => {
     data.push([
       user.id,
       user.email,
-      user.kakao_id,
+      user.kakaoId,
       user.password,
       user.name,
-      user.profile_image,
-      user.phone_number,
+      user.profileImage,
+      user.phoneNumber,
       user.points,
-      user.theme_id,
+      user.themeId,
     ]);
   }
 

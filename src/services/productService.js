@@ -1,18 +1,18 @@
 const productDao = require('../models/productDao');
 
 const getProductList = async (
-  region,
-  amenity,
-  theme,
+  regionId,
+  amenityId,
+  themeId,
   orderBy,
   campName,
   limit,
   offset
 ) => {
   const campList = await productDao.campList(
-    region,
-    amenity,
-    theme,
+    regionId,
+    amenityId,
+    themeId,
     orderBy,
     campName,
     limit,
@@ -21,6 +21,21 @@ const getProductList = async (
   return campList;
 };
 
+const getZoneByCampId = async (campId) => {
+  return productDao.getZoneByCampId(campId);
+};
+
+const getAvailableCampingZone = async (campId, startDate, endDate) => {
+return productDao.getAvailableCampingZone(campId, startDate, endDate);
+};
+
+const getUnavailableCampingZone = async (campId, availableZoneNames) => {
+  return productDao.getUnavailableCampingZone(campId, availableZoneNames);
+};
+
 module.exports = {
   getProductList,
+  getZoneByCampId,
+  getAvailableCampingZone,
+  getUnavailableCampingZone,
 };
