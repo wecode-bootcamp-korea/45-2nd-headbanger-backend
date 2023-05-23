@@ -5,7 +5,7 @@ CREATE TABLE camps (
     price DECIMAL NOT NULL,
     address TEXT NOT NULL,
     latitude DECIMAL NOT NULL,
-    longitute DECIMAL NOT NULL,
+    longitude DECIMAL NOT NULL,
     description TEXT NOT NULL,
     thumbnail TEXT NOT NULL,
     picture TEXT NOT NULL,
