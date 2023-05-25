@@ -1,18 +1,21 @@
-const getFiltering = (region, theme, amenity, campName) => {
+const getFiltering = ({ regionId, themeId, amenityId, campName, campId }) => {
   let conditionArr = [];
   let whereClause = '';
 
-  if (region) {
-    conditionArr.push(`r.region_name IN (${region})`);
+  if (regionId) {
+    conditionArr.push(`r.id IN (${regionId})`);
   }
-  if (theme) {
-    conditionArr.push(`t.theme IN (${theme})`);
+  if (themeId) {
+    conditionArr.push(`t.id IN (${themeId})`);
   }
-  if (amenity) {
-    conditionArr.push(`a.amenity_name IN (${amenity})`);
+  if (amenityId) {
+    conditionArr.push(`a.id IN (${amenityId})`);
   }
   if (campName) {
     conditionArr.push(`c.campsite_name = ${campName}`);
+  }
+  if (campId) {
+    conditionArr.push(`r.camp_id = ${campId}`);
   }
   if (conditionArr.length > 0) {
     whereClause = 'WHERE' + ' ' + conditionArr.join(' AND ');
@@ -45,13 +48,13 @@ const getLimit = (limit, offset) => {
   return `LIMIT ${limit} OFFSET ${offset}`;
 };
 
-const isArray = (amenity) => {
-  if (!Array.isArray(amenity)) {
+const isArray = (amenityId) => {
+  if (!Array.isArray(amenityId)) {
     let amenityArr = [];
-    amenityArr.push(amenity);
+    amenityArr.push(amenityId);
     return amenityArr;
   }
-  return amenity;
+  return amenityId;
 };
 
 module.exports = {

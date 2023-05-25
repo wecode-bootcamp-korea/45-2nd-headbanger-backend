@@ -1,18 +1,18 @@
 const productDao = require('../models/productDao');
 
 const getProductList = async (
-  region,
-  amenity,
-  theme,
+  regionId,
+  amenityId,
+  themeId,
   orderBy,
   campName,
   limit,
   offset
 ) => {
   const campList = await productDao.campList(
-    region,
-    amenity,
-    theme,
+    regionId,
+    amenityId,
+    themeId,
     orderBy,
     campName,
     limit,

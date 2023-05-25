@@ -2,9 +2,9 @@ const { dataSource } = require('./dataSource');
 const queryBuilder = require('./queryBuilder');
 
 const campList = async (
-  region,
-  amenity,
-  theme,
+  regionId,
+  amenityId,
+  themeId,
   orderBy,
   campName,
   limit,
@@ -29,17 +29,17 @@ const campList = async (
       JOIN wishlists AS w ON c.id = w.camp_id
       `;
 
-    const whereCondition = queryBuilder.getFiltering(
-      region,
-      theme,
-      amenity,
-      campName
-    );
+    const whereCondition = queryBuilder.getFiltering({
+      regionId: regionId,
+      themeId: themeId,
+      amenityId: amenityId,
+      campName: campName,
+    });
     const sortQuery = queryBuilder.getOrdering(orderBy);
     const limitQuery = queryBuilder.getLimit(limit, offset);
-    const makeArray = queryBuilder.isArray(amenity);
+    const makeArray = queryBuilder.isArray(amenityId);
     const groupCondition = `GROUP BY c.id`;
-    const havingCondition = amenity
+    const havingCondition = amenityId
       ? `HAVING COUNT(DISTINCT ca.amenity_id) = ${makeArray.length}`
       : '';
 
