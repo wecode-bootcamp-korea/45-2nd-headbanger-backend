@@ -2,11 +2,12 @@ const productService = require('../services/productService');
 const { catchAsync } = require('../middlewares/error');
 
 const getProductList = catchAsync(async (req, res) => {
-  const {
-    query: { regionId, amenityId, themeId, orderBy, campName, limit, offset },
-  } = req;
+  const { regionId, amenityId, themeId, orderBy, campName, limit, offset } =
+    req.query;
+  const userId = req.userId;
 
-  const products = await productService.getProductList(
+  const result = await productService.getProductList(
+    userId,
     regionId,
     amenityId,
     themeId,
@@ -15,7 +16,7 @@ const getProductList = catchAsync(async (req, res) => {
     limit,
     offset
   );
-  return res.status(200).json({ data: products });
+  return res.json({ result });
 });
 
 const getZoneByCampId = catchAsync(async (req, res) => {

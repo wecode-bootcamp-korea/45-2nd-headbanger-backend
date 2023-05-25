@@ -1,7 +1,13 @@
-const getFiltering = (regionId, themeId, amenityId, campName) => {
+const getFiltering = ({
+  regionId,
+  themeId,
+  amenityId,
+  campName,
+  campId,
+  userId,
+}) => {
   let conditionArr = [];
   let whereClause = '';
-
   if (regionId) {
     conditionArr.push(`r.id IN (${regionId})`);
   }
@@ -12,7 +18,10 @@ const getFiltering = (regionId, themeId, amenityId, campName) => {
     conditionArr.push(`a.id IN (${amenityId})`);
   }
   if (campName) {
-    conditionArr.push(`c.campsite_name = ${campName}`);
+    conditionArr.push(`c.campsite_name LIKE '%${campName}%'`);
+  }
+  if (campId) {
+    conditionArr.push(`r.camp_id = ${campId}`);
   }
   if (conditionArr.length > 0) {
     whereClause = 'WHERE' + ' ' + conditionArr.join(' AND ');
