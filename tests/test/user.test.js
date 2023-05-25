@@ -12,7 +12,7 @@ const userFixture = require('../fixtures/users-fixture');
 const themeData = require('../data/themes');
 const userData = require('../data/users');
 
-const truncate = require('../test-client');
+const truncate = require('../fixtures/test-client');
 
 jest.mock('axios');
 jest.mock('jsonwebtoken', () => {

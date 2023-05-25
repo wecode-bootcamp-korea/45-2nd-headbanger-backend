@@ -42,6 +42,6 @@ const postReview = catchAsync(async (req, res) => {
 });
 
 module.exports = {
-  postReview,
   getReview,
+  postReview,
 };

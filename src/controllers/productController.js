@@ -6,17 +6,30 @@ const getProductList = catchAsync(async (req, res) => {
     req.query;
   const userId = req.userId;
 
-  const result = await productService.getProductList(
-    userId,
-    regionId,
-    amenityId,
-    themeId,
-    orderBy,
-    campName,
-    limit,
-    offset
-  );
-  return res.json({ result });
+  if (userId) {
+    const result = await productService.getProductList(
+      userId,
+      regionId,
+      amenityId,
+      themeId,
+      orderBy,
+      campName,
+      limit,
+      offset
+    );
+    return res.json({ result });
+  } else {
+    const result = await productService.getProductList(
+      regionId,
+      amenityId,
+      themeId,
+      orderBy,
+      campName,
+      limit,
+      offset
+    );
+    return res.json({ result });
+  }
 });
 
 const getAllZoneByCampId = catchAsync(async (req, res) => {
@@ -68,10 +81,15 @@ const getCampById = catchAsync(async (req, res) => {
 
   return res.status(200).json({ message: 'SUCCESS', data: campDetail });
 });
+const getCategories = catchAsync(async (req, res) => {
+  await productService.getCategories;
+  return res.json({ result });
+});
 
 module.exports = {
   getProductList,
   getAllZoneByCampId,
   getAvailableCampingZone,
   getCampById,
+  getCategories,
 };

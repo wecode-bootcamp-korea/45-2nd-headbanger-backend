@@ -48,6 +48,9 @@ const getCampById = async (campId) => {
     throw err;
   }
 };
+const getCategories = async () => {
+  return await productDao.getCategories;
+};
 
 module.exports = {
   getProductList,
@@ -55,4 +58,5 @@ module.exports = {
   getAvailableCampingZone,
   getUnavailableCampingZone,
   getCampById,
+  getCategories,
 };

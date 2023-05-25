@@ -46,7 +46,7 @@ const getOrdering = (orderBy) => {
 
 const getLimit = (limit, offset) => {
   if (!limit) {
-    limit = 10;
+    limit = 1000;
   }
   if (!offset) {
     offset = 0;
