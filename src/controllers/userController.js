@@ -22,7 +22,6 @@ const checkRegisteredEmail = catchAsync(async (req, res) => {
 
 const login = catchAsync(async (req, res) => {
   const { email, password } = req.body;
-
   if (!email || !password) {
     const error = new Error('KEY ERROR');
     error.statusCode = 400;
@@ -42,7 +41,6 @@ const login = catchAsync(async (req, res) => {
 
 const signUp = catchAsync(async (req, res) => {
   const { email, password, name, phoneNumber } = req.body;
-
   if (!email || !password || !name || !phoneNumber) {
     const error = new Error('KEY ERROR');
     error.statusCode = 400;
@@ -78,22 +76,26 @@ const modifyTheme = catchAsync(async (req, res) => {
 
   const result = await userService.modifyTheme(userId, themeId);
 
-  return res.status(200).json({ message: 'MODIFY SUCCESS' , result});
-})
+  return res.status(200).json({ message: 'MODIFY SUCCESS', result });
+});
 
-const getReservationLists = catchAsync(async(req, res) => {
+const getReservationLists = catchAsync(async (req, res) => {
   const userId = req.user;
 
-  const scheduledReservation = await userService.getScheduledReservationLists(userId);
+  const scheduledReservation = await userService.getScheduledReservationLists(
+    userId
+  );
   const pastReservation = await userService.getPastReservationLists(userId);
-  const cancelledReservation = await userService.getCancelledReservationLists(userId);
+  const cancelledReservation = await userService.getCancelledReservationLists(
+    userId
+  );
 
   return res.status(200).send({
     scheduledList: scheduledReservation,
     pastList: pastReservation,
-    cancelledList: cancelledReservation
-  })
-})
+    cancelledList: cancelledReservation,
+  });
+});
 
 module.exports = {
   checkRegisteredEmail,
@@ -101,5 +103,5 @@ module.exports = {
   signUp,
   kakaoLogin,
   modifyTheme,
-  getReservationLists
+  getReservationLists,
 };

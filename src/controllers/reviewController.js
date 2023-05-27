@@ -12,6 +12,36 @@ const getReview = catchAsync(async (req, res) => {
   return result;
 });
 
+const postReview = catchAsync(async (req, res) => {
+  const userId = req.user;
+  const { campId, view, safety, cost, clean, convenience, content } = req.body;
+  if (
+    !userId ||
+    !campId ||
+    !view ||
+    !safety ||
+    !cost ||
+    !clean ||
+    !convenience ||
+    !content
+  ) {
+    return res.status(400).json({ message: 'KEY_ERROR😞' });
+  }
+
+  await reviewService.postReview(
+    userId,
+    campId,
+    view,
+    safety,
+    cost,
+    clean,
+    convenience,
+    content
+  );
+  return res.status(201).json({ message: `SUCCESS_INPUT_REVIEW👍` });
+});
+
 module.exports = {
+  postReview,
   getReview,
 };
