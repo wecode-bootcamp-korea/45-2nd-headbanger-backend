@@ -3,6 +3,7 @@
 .env
 .env.test
 node_modules/
+eventSchedule.txt
 
 db/schema.sql
 ### Linux ###
