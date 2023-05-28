@@ -5,16 +5,18 @@ const { dataSource } = require('../../src/models/dataSource');
 
 const truncate = require('../test-client')
 
-const themeFixture = require('../fixtures/themes-fixture')
-const regionFixture = require('../fixtures/regions-fixture')
-const campFixture = require('../fixtures/camps-fixture')
-const campingZoneFixture = require('../fixtures/campingZones-fixture')
-const zoneSizeOptionFixture = require('../fixtures/zoneSizeOptions-fixture')
+const themeFixture = require('../fixtures/themes-fixture');
+const regionFixture = require('../fixtures/regions-fixture');
+const campFixture = require('../fixtures/camps-fixture');
+const campPictureFixture = require('../fixtures/campPictures-fixture');
+const campingZoneFixture = require('../fixtures/campingZones-fixture');
+const zoneSizeOptionFixture = require('../fixtures/zoneSizeOptions-fixture');
 
-const themeData = require('../data/themes')
-const regionData = require('../data/regions')
-const campData = require('../data/camps')
-const campingZoneData = require('../data/campingZones')
+const themeData = require('../data/themes');
+const regionData = require('../data/regions');
+const campData = require('../data/camps');
+const campPictureData = require('../data/campPictures');
+const campingZoneData = require('../data/campingZones');
 const zoneSizeOptionData = require('../data/zoneSizeOptions');
 const { response } = require('express');
 
@@ -26,11 +28,12 @@ describe("Get Zone Information By CampId", () => {
     await themeFixture.createThemes(themeData.testTheme);
     await regionFixture.createRegions(regionData.testRegion);
     await campFixture.createCamps(campData.testCamp);
+    await campPictureFixture.createCampPictures(campPictureData.testCampPicture);
     await zoneSizeOptionFixture.createZoneSizeOptions(zoneSizeOptionData.testZoneSizeOption);
     await campingZoneFixture.createCampingZones(campingZoneData.testCampingZone);
   });
   
-  const tableList = ['themes', 'regions', 'camps', 'zone_size_options', 'camping_zones']
+  const tableList = ['themes', 'regions', 'camps', 'camp_pictures', 'zone_size_options', 'camping_zones']
   afterAll(async () => {
     await truncate.truncateTables(tableList)
   });
@@ -53,14 +56,14 @@ describe("Get Zone Information By CampId", () => {
     const response = await request(app)
     .get("/products/1/camping-zone")
     
-    expect(response.body.message).toEqual('GET SUCCESS' );
+    expect(response.body.message).toEqual('GET SUCCESS');
     expect(response.statusCode).toEqual(200);
     expect(response.body.result).toEqual({
       zoneInfo: [
         {
           id: 1,
           zoneName: 'A1',
-          maxPeople: '2',
+          maxPeople: 2,
           coordinates: {
             "x1": 11,
             "x2": 12,
@@ -76,7 +79,7 @@ describe("Get Zone Information By CampId", () => {
         {
           id: 2,
           zoneName: 'B1',
-          maxPeople: '4',
+          maxPeople: 4,
           coordinates: {
             "x1": 11,
             "x2": 12,

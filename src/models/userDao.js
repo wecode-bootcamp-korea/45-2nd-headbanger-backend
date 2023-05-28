@@ -112,6 +112,46 @@ const kakaoSignUp = async (kakaoId, email, nickName) => {
   return user.insertId;
 };
 
+const modifyTheme = async(userId, themeId) => {
+    const queryRunner = dataSource.createQueryRunner();
+
+    await queryRunner.connect();
+
+    await queryRunner.startTransaction();
+
+    try{
+    const result = await queryRunner.query(`
+    UPDATE users
+      SET theme_id = ?
+    WHERE id = ? AND EXISTS (SELECT 1 FROM themes WHERE id = ? )
+    `,
+    [themeId, userId, themeId])
+
+    if (result.affectedRows !== 1) throw new Error('INVALID_MODIFICATION')
+
+    const modifyResult = await queryRunner.query(`
+    SELECT
+      u.id userId,
+      u.theme_id themeId,
+      t.theme
+    FROM users u
+    JOIN themes t ON u.theme_id = t.id
+    WHERE u.id = ?
+      `,[userId]
+    )
+
+    await queryRunner.commitTransaction();
+    return modifyResult
+  } catch (error) {
+    await queryRunner.rollbackTransaction();
+    error = new Error ('INVALID_DATA')
+    error.statusCode = 400
+    throw error;
+  } finally {
+    await queryRunner.release();
+  }
+}
+
 module.exports = {
   checkRegisteredEmail,
   getUserByEmail,
@@ -119,4 +159,5 @@ module.exports = {
   checkUserByKakaoId,
   kakaoSignUp,
   getUserByKakaoId,
+  modifyTheme
 };

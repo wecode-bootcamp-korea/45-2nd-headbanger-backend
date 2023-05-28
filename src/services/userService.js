@@ -104,4 +104,14 @@ const kakaoLogin = async (accessToken) => {
   }
 };
 
-module.exports = { checkRegisteredEmail, login, signUp, kakaoLogin };
+const modifyTheme = async(userId, themeId) => {
+  return userDao.modifyTheme(userId, themeId);
+}
+
+module.exports = { 
+  checkRegisteredEmail, 
+  login, 
+  signUp, 
+  kakaoLogin,
+  modifyTheme
+};

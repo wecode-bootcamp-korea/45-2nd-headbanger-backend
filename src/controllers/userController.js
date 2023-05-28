@@ -72,4 +72,19 @@ const kakaoLogin = catchAsync(async (req, res) => {
   return res.status(200).send({ webToken: token });
 });
 
-module.exports = { checkRegisteredEmail, login, signUp, kakaoLogin };
+const modifyTheme = catchAsync(async (req, res) => {
+  const userId = req.user;
+  const { themeId } = req.body;
+
+  const result = await userService.modifyTheme(userId, themeId);
+
+  return res.status(200).json({ message: 'MODIFY SUCCESS' , result});
+})
+
+module.exports = { 
+  checkRegisteredEmail, 
+  login, 
+  signUp, 
+  kakaoLogin,
+  modifyTheme
+};

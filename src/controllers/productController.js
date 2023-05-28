@@ -37,7 +37,6 @@ const getCampingZone = catchAsync(async (req, res) => {
   if(endDate < startDate) return res.status(400).json({message: 'INVALID_DATA'})
 
   const availableZone = await productService.getAvailableCampingZone(campId, startDate, endDate);
-  console.log(availableZone)
 
   let availableZoneNames = availableZone.campingZones.map(zoneNames => zoneNames.zoneName)
 
