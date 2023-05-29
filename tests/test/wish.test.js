@@ -89,4 +89,25 @@ describe('wishlist', () => {
     expect(response.statusCode).toEqual(409);
     expect(response.body.message).toEqual('TOKEN_DOES_NOT_EXIST');
   });
+  test('SUCCESS GET WISH WHERE user_id', async () => {
+    const response = await request(app)
+      .get('/wish')
+      .set({ authorization: vailedToken });
+
+    expect(response.statusCode).toEqual(200);
+    expect(response.body.result).toEqual([
+      {
+        address: 'address_test1',
+        camp_id: 1,
+        camp_name: 'campsite_name_test1',
+        thumbnail: 'thumbnail_test1',
+      },
+    ]);
+  });
+  test('FAIL GET WISH : INVAILED_TOKEN', async () => {
+    const response = await request(app).get('/wish');
+
+    expect(response.statusCode).toEqual(409);
+    expect(response.body.message).toEqual('TOKEN_DOES_NOT_EXIST');
+  });
 });

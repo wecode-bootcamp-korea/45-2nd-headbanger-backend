@@ -23,6 +23,9 @@ const getFiltering = ({
   if (campId) {
     conditionArr.push(`r.camp_id = ${campId}`);
   }
+  if (userId) {
+    conditionArr.push(`a.amenity_name IN (${userId})`);
+  }
   if (conditionArr.length > 0) {
     whereClause = 'WHERE' + ' ' + conditionArr.join(' AND ');
   }

@@ -11,6 +11,14 @@ const postWish = catchAsync(async (req, res) => {
   return res.status(201).json({ result });
 });
 
+const getWishByUserId = catchAsync(async (req, res) => {
+  const userId = req.user;
+
+  const result = await wishService.getWishByUserId(userId);
+  return res.status(200).json({ result });
+});
+
 module.exports = {
+  getWishByUserId,
   postWish,
 };
