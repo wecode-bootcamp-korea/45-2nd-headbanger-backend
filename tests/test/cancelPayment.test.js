@@ -2,6 +2,7 @@ const request = require('supertest');
 
 const { createApp } = require('../../app');
 const { dataSource } = require('../../src/models/dataSource');
+const jwt = require('jsonwebtoken')
 
 const truncate = require('../test-client');
 
@@ -28,6 +29,18 @@ const reservationData = require('../data/reservations');
 const zonesReservationData = require('../data/zonesReservations');
 const { response } = require('express');
 
+const userId = 1;
+const token = jwt.sign(
+  {
+    id: userId,
+  },
+  process.env.JWT_SECRET,
+  {
+    expiresIn: process.env.JWT_EXP,
+    issuer: process.env.JWT_ISSUER,
+  }
+);
+
 describe("Get Available Unavailable Camping Zone", () => {
   let app;
   beforeAll(async () => {
@@ -44,64 +57,38 @@ describe("Get Available Unavailable Camping Zone", () => {
     await reservationFixture.createReservations(reservationData.testReservation);
     await zonesReservationsFixture.createZonesReservations(zonesReservationData.testZonesReservation);
   });
-  
+
   const tableList = ['themes', 'regions', 'camps', 'camp_pictures', 'zone_size_options', 'camping_zones', 'users', 'reservation_status', 'reservations', 'zones_reservations']
   afterAll(async () => {
     await truncate.truncateTables(tableList)
   });
 
-  test("FAILED: invalid date value", async () => {
+  test("FAILED: token does not exist", async () => {
     const response = await request(app)
-      .get("/products/campingZone?campId=1&startDate=2023-06-03&endDate=2023-06-01")
+      .patch("/payments")
+      .send({reservationId: 4})
 
-      expect(response.statusCode).toEqual(400);
-      expect(response.body.message).toEqual('INVALID_DATA');
+      expect(response.statusCode).toEqual(409);
+      expect(response.body.message).toEqual('TOKEN_DOES_NOT_EXIST');
   });
 
-  test("SUCCESS: get campingZone", async () => {
+  test("FAILED: cancel payment", async () => {
     const response = await request(app)
-    .get("/products/campingZone?campId=1&startDate=2023-06-03&endDate=2023-06-05")
-    
+      .patch("/payments")
+      .set({authorization: token})
+      .send({reservationId: 4})
+
+      expect(response.statusCode).toEqual(400);
+      expect(response.body.message).toEqual('CANCEL FAIL');
+  });
+
+  test("SUCCESS: cancel payment", async () => {
+    const response = await request(app)
+    .patch("/payments")
+    .set({authorization: token})
+    .send({reservationId: 1})
+
     expect(response.statusCode).toEqual(200);
-    expect(response.body).toEqual({
-      availableZones: [
-        {
-          campId: 1,
-          zoneName: 'A1',
-          maxPeople: 2,
-          coordinates: {
-            "x1": 11,
-            "x2": 12,
-            "x3": 13,
-            "x4": 14,
-            "y1": 21,
-            "y2": 22,
-            "y3": 23,
-            "y4": 24
-          },
-          campingZoneId: 1,
-          additionalPrice: 0
-        }
-      ],
-      unavailableZones:[
-        {
-          campId: 1,
-          zoneName: 'B1',
-          maxPeople: 4,
-          coordinates: {
-            "x1": 11,
-            "x2": 12,
-            "x3": 13,
-            "x4": 14,
-            "y1": 21,
-            "y2": 22,
-            "y3": 23,
-            "y4": 24
-          },
-          campingZoneId: 2,
-          additionalPrice: 30000
-        }
-    ]
-    })
+    expect(response.body.message).toEqual('CANCEL SUCCESS')
   });
 })

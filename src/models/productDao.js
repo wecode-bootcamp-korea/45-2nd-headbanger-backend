@@ -13,6 +13,7 @@ const campList = async (
   try {
     const baseQuery = `
         SELECT
+          c.id campId,
           c.campsite_name,
           c.price,
           c.address,
@@ -37,7 +38,7 @@ const campList = async (
     );
     const sortQuery = queryBuilder.getOrdering(orderBy);
     const limitQuery = queryBuilder.getLimit(limit, offset);
-    const makeArray = queryBuilder.isArray(amenity);
+    const makeArray = queryBuilder.isArray(amenityId);
     const groupCondition = `GROUP BY c.id`;
     const havingCondition = amenityId
       ? `HAVING COUNT(DISTINCT ca.amenity_id) = ${makeArray.length}`
@@ -129,7 +130,6 @@ const getAvailableCampingZone = async (campId, startDate, endDate) => {
       AND c.id = ?`,
     [startDate, endDate, campId]
   )
-  console.log(campingZoneQuery)
     return availableZone
   } catch (error) {
     error = new Error('INVALID_DATA');
@@ -147,7 +147,6 @@ const getUnavailableCampingZone = async (campId, availableZoneNames) => {
     )
     return unavailableZone
   } catch (error) {
-    console.log(error.message)
       error = new Error('INVALID_DATA');
       error.statusCode = 400;
       throw error;
