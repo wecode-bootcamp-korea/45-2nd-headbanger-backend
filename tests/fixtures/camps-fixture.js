@@ -1,4 +1,4 @@
-const { dataSource } = require("../../src/models/dataSource")
+const { dataSource } = require('../../src/models/dataSource');
 
 const createCamps = (campList) => {
   let data = [];
@@ -9,15 +9,15 @@ const createCamps = (campList) => {
       camp.campsiteName,
       camp.price,
       camp.address,
-      camp.latitude, 
+      camp.latitude,
       camp.longitude,
-      camp.description, 
-      camp.thumbnail, 
-      camp.viewMap, 
-      camp.checkIn, 
-      camp.checkOut, 
-      camp.regionId, 
-      camp.themeId
+      camp.description,
+      camp.thumbnail,
+      camp.viewMap,
+      camp.checkIn,
+      camp.checkOut,
+      camp.regionId,
+      camp.themeId,
     ]);
   }
 
@@ -37,9 +37,9 @@ const createCamps = (campList) => {
       region_id, 
       theme_id
     ) VALUES ?
-  `, [ data ]
-  )
-}
+  `,
+    [data]
+  );
+};
 
-
-module.exports = { createCamps }
+module.exports = { createCamps };

@@ -56,8 +56,8 @@ const campList = async (
   }
 };
 
-const getZoneByCampId = async(campId) => {
-  try{
+const getZoneByCampId = async (campId) => {
+  try {
     const [result] = await dataSource.query(
       `SELECT
       JSON_ARRAYAGG(
@@ -83,16 +83,16 @@ const getZoneByCampId = async(campId) => {
       JOIN zone_size_options zso ON zso.id = cz.zone_size_option_id
       WHERE cz.camp_id = ?`,
       [campId]
-    )
-    return result
-  }catch(error){
+    );
+    return result;
+  } catch (error) {
     error = new Error('INVALID_DATA');
     error.statusCode = 400;
     throw error;
-}};
+  }
+};
 
-const campingZoneQuery = 
-`SELECT
+const campingZoneQuery = `SELECT
   JSON_ARRAYAGG(
     JSON_OBJECT(
       "campId", c.id,
@@ -115,12 +115,12 @@ const campingZoneQuery =
   )campingZones
 FROM camps c
 JOIN camping_zones cz ON c.id = cz.camp_id
-JOIN zone_size_options zso ON cz.zone_size_option_id = zso.id`
+JOIN zone_size_options zso ON cz.zone_size_option_id = zso.id`;
 
 const getAvailableCampingZone = async (campId, startDate, endDate) => {
   try {
-  const [availableZone] = await dataSource.query(
-    `${campingZoneQuery} 
+    const [availableZone] = await dataSource.query(
+      `${campingZoneQuery} 
     LEFT JOIN zones_reservations zr ON cz.id = zr.camping_zone_id
     LEFT JOIN reservations r ON zr.reservation_id = r.id
     WHERE (NOT (? < r.end_date && r.start_date < ?)
@@ -128,34 +128,103 @@ const getAvailableCampingZone = async (campId, startDate, endDate) => {
       OR r.end_date IS NULL
       OR r.reservation_status_id = 3)
       AND c.id = ?`,
-    [startDate, endDate, campId]
-  )
-    return availableZone
+      [startDate, endDate, campId]
+    );
+    return availableZone;
   } catch (error) {
     error = new Error('INVALID_DATA');
     error.statusCode = 400;
     throw error;
   }
-}
+};
 
 const getUnavailableCampingZone = async (campId, availableZoneNames) => {
   try {
     const [unavailableZone] = await dataSource.query(
       `${campingZoneQuery} 
         WHERE cz.camp_id = ? AND NOT cz.zone_name IN (?)`,
-        [campId, availableZoneNames]
-    )
-    return unavailableZone
+      [campId, availableZoneNames]
+    );
+    return unavailableZone;
   } catch (error) {
-      error = new Error('INVALID_DATA');
-      error.statusCode = 400;
-      throw error;
-    }
-  };
+    error = new Error('INVALID_DATA');
+    error.statusCode = 400;
+    throw error;
+  }
+};
+
+const checkCampById = async (campId) => {
+  try {
+    const [camp] = await dataSource.query(
+      `SELECT EXISTS(
+        SELECT
+          id
+        FROM
+          camps
+        WHERE
+          id = ?
+      ) AS registered
+      `,
+      [campId]
+    );
+    return !!parseInt(camp.registered);
+  } catch (error) {
+    error = new Error('DATASOURCE ERROR');
+    error.statusCode = 400;
+    throw error;
+  }
+};
+
+const getCampById = async (campId) => {
+  try {
+    const [data] = await dataSource.query(
+      `SELECT
+      c.id AS campId,
+      c.campsite_name AS campName,
+      c.address AS address,
+      (SELECT JSON_ARRAYAGG(picture)
+       FROM (
+         SELECT DISTINCT cp.picture
+         FROM camp_pictures cp
+         INNER JOIN camps c ON cp.camp_id = c.id
+         WHERE cp.camp_id = ?
+       ) AS subquery) AS pictures,
+      c.price AS price,
+      c.description AS description,
+      c.thumbnail AS thumbnail,
+      (SELECT JSON_ARRAYAGG(amenity_name)
+       FROM (
+         SELECT DISTINCT a.amenity_name
+         FROM camps_amenities ca
+         INNER JOIN amenities a ON ca.amenity_id = a.id
+         WHERE ca.camp_id = c.id
+       ) AS subquery) AS amenities,
+      t.theme AS theme,
+      r.region_name AS region,
+      c.check_in AS checkIn,
+      c.check_out AS checkOut
+    FROM camps c
+    LEFT JOIN regions r ON r.id = c.region_id
+    LEFT JOIN themes t ON c.theme_id = t.id
+    LEFT JOIN camp_pictures cp ON cp.camp_id = c.id
+    WHERE c.id = ?
+    GROUP BY c.id
+      `,
+      [campId, campId]
+    );
+    return data;
+  } catch (error) {
+    error = new Error('DATASOURCE ERROR');
+    error.statusCode = 400;
+    throw error;
+  }
+};
 
 module.exports = {
   campList,
   getZoneByCampId,
   getAvailableCampingZone,
-  getUnavailableCampingZone
+  getUnavailableCampingZone,
+  checkCampById,
+  getCampById,
 };
