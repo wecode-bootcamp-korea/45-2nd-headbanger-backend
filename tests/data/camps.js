@@ -8,10 +8,9 @@ const testCamp = [
   longitude: 120.4321,
   description: 'description_test1', 
   thumbnail: 'thumbnail_test1', 
-  picture: 'pictures_test1', 
   viewMap: 'view_map_test1', 
-  checkIn: '2023-06-01', 
-  checkOut: '2023-06-03', 
+  checkIn: '16:00', 
+  checkOut: '12:00', 
   regionId: 1, 
   themeId: 1
   },
@@ -24,10 +23,9 @@ const testCamp = [
     longitude: 520.4321,
     description: 'description_test2', 
     thumbnail: 'thumbnail_test2', 
-    picture: 'pictures_test2', 
     viewMap: 'view_map_test2', 
-    checkIn: '2023-06-02', 
-    checkOut: '2023-06-02', 
+    checkIn: '16:00', 
+    checkOut: '12:00', 
     regionId: 1, 
     themeId: 1
     }

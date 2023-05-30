@@ -41,7 +41,7 @@ describe("Get Available Unavailable Camping Zone", () => {
     await reservationFixture.createReservations(reservationData.testReservation);
     await zonesReservationsFixture.createZonesReservations(zonesReservationData.testZonesReservation);
   });
-  
+
   const tableList = ['themes', 'regions', 'camps', 'zone_size_options', 'camping_zones', 'users', 'reservation_status', 'reservations', 'zones_reservations']
   afterAll(async () => {
     await truncate.truncateTables(tableList)
@@ -58,7 +58,7 @@ describe("Get Available Unavailable Camping Zone", () => {
   test("SUCCESS: get campingZone", async () => {
     const response = await request(app)
     .get("/products/campingZone?campId=1&startDate=2023-06-03&endDate=2023-06-05")
-    
+
     expect(response.statusCode).toEqual(200);
     expect(response.body).toEqual({
       availableZones: [
