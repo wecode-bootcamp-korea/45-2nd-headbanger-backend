@@ -1,27 +1,27 @@
 const testRegion = [
   {
     id: 1,
-    regionName: 'test_region_1',
+    regionName: '수도권',
   },
   {
     id: 2,
-    regionName: 'test_region_2',
+    regionName: '강원도',
   },
   {
     id: 3,
-    regionName: 'test_region_3',
+    regionName: '충청도',
   },
   {
     id: 4,
-    regionName: 'test_region_4',
+    regionName: '전라도',
   },
   {
     id: 5,
-    regionName: 'test_region_5',
+    regionName: '경상도',
   },
   {
     id: 6,
-    regionName: 'test_region_6',
+    regionName: '제주',
   },
 ];
 

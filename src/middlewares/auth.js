@@ -11,8 +11,32 @@ const validateToken = async (req, res, next) => {
     }
 
     const payload = jwt.verify(token, process.env.JWT_SECRET);
+    const user = payload.id;
+    if (!user) {
+      const err = new Error('INVALID_USER');
+      err.statusCode = 401;
 
-    req.user = payload.id;
+      throw err;
+    }
+
+    req.user = user;
+
+    next();
+  } catch (err) {
+    next(err);
+  }
+};
+
+const validateTokenUserUndefined = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    let userId;
+
+    if (token) {
+      const payload = jwt.verify(token, process.env.JWT_SECRET);
+      userId = payload.id;
+    }
+    req.userId = userId;
 
     next();
   } catch (err) {
@@ -21,5 +45,6 @@ const validateToken = async (req, res, next) => {
 };
 
 module.exports = {
-  validateToken
+  validateToken,
+  validateTokenUserUndefined,
 };

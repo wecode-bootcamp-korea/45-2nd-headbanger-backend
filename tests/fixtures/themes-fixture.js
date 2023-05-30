@@ -1,13 +1,10 @@
-const { dataSource } = require("../../src/models/dataSource")
+const { dataSource } = require('../../src/models/dataSource');
 
 const createThemes = (themeList) => {
   let data = [];
 
   for (const theme of themeList) {
-    data.push([
-      theme.id,
-      theme.theme
-    ]);
+    data.push([theme.id, theme.theme]);
   }
 
   return dataSource.query(
@@ -15,8 +12,9 @@ const createThemes = (themeList) => {
       id,
       theme
     ) VALUES ?
-  `, [ data ]
-  )
-}
+  `,
+    [data]
+  );
+};
 
-module.exports = { createThemes }
+module.exports = { createThemes };
