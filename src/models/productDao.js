@@ -2,9 +2,9 @@ const { dataSource } = require('./dataSource');
 const queryBuilder = require('./queryBuilder');
 
 const campList = async (
-  region,
-  amenity,
-  theme,
+  regionId,
+  amenityId,
+  themeId,
   orderBy,
   campName,
   limit,
@@ -30,16 +30,16 @@ const campList = async (
       `;
 
     const whereCondition = queryBuilder.getFiltering(
-      region,
-      theme,
-      amenity,
+      regionId,
+      amenityId,
+      themeId,
       campName
     );
     const sortQuery = queryBuilder.getOrdering(orderBy);
     const limitQuery = queryBuilder.getLimit(limit, offset);
     const makeArray = queryBuilder.isArray(amenity);
     const groupCondition = `GROUP BY c.id`;
-    const havingCondition = amenity
+    const havingCondition = amenityId
       ? `HAVING COUNT(DISTINCT ca.amenity_id) = ${makeArray.length}`
       : '';
 
@@ -54,6 +54,109 @@ const campList = async (
     throw error;
   }
 };
+
+const getZoneByCampId = async(campId) => {
+  try{
+    const [result] = await dataSource.query(
+      `SELECT
+      JSON_ARRAYAGG(
+         JSON_OBJECT(
+           "id", cz.id,
+           "zoneName", cz.zone_name,
+           "additionalPrice", zso.additional_price,
+           "maxPeople", zso.max_people,
+           "coordinates", 
+             JSON_OBJECT(
+               "x1", cz.x1,
+               "x2", cz.x2,
+               "x3", cz.x3,
+               "x4", cz.x4,
+               "y1", cz.y1,
+               "y2", cz.y2,
+               "y3", cz.y3,
+               "y4", cz.y4 
+             )
+            ) 
+          ) zoneInfo
+      FROM camping_zones cz
+      JOIN zone_size_options zso ON zso.id = cz.zone_size_option_id
+      WHERE cz.camp_id = ?`,
+      [campId]
+    )
+    return result
+  }catch(error){
+    error = new Error('INVALID_DATA');
+    error.statusCode = 400;
+    throw error;
+}};
+
+const campingZoneQuery = 
+`SELECT
+  JSON_ARRAYAGG(
+    JSON_OBJECT(
+      "campId", c.id,
+      "campingZoneId", cz.id,
+      "zoneName", cz.zone_name,
+      "additionalPrice", zso.additional_price,
+      "maxPeople", zso.max_people,
+      "coordinates", 
+      JSON_OBJECT(
+        "x1", cz.x1,
+        "x2", cz.x2,
+        "x3", cz.x3,
+        "x4", cz.x4,
+        "y1", cz.y1,
+        "y2", cz.y2,
+        "y3", cz.y3,
+        "y4", cz.y4 
+      )
+    )
+  )campingZones
+FROM camps c
+JOIN camping_zones cz ON c.id = cz.camp_id
+JOIN zone_size_options zso ON cz.zone_size_option_id = zso.id`
+
+const getAvailableCampingZone = async (campId, startDate, endDate) => {
+  try {
+  const [availableZone] = await dataSource.query(
+    `${campingZoneQuery} 
+    LEFT JOIN zones_reservations zr ON cz.id = zr.camping_zone_id
+    LEFT JOIN reservations r ON zr.reservation_id = r.id
+    WHERE (NOT (? < r.end_date && r.start_date < ?)
+      OR r.start_date IS NULL
+      OR r.end_date IS NULL
+      OR r.reservation_status_id = 3)
+      AND c.id = ?`,
+    [startDate, endDate, campId]
+  )
+  console.log(campingZoneQuery)
+    return availableZone
+  } catch (error) {
+    error = new Error('INVALID_DATA');
+    error.statusCode = 400;
+    throw error;
+  }
+}
+
+const getUnavailableCampingZone = async (campId, availableZoneNames) => {
+  try {
+    const [unavailableZone] = await dataSource.query(
+      `${campingZoneQuery} 
+        WHERE cz.camp_id = ? AND NOT cz.zone_name IN (?)`,
+        [campId, availableZoneNames]
+    )
+    return unavailableZone
+  } catch (error) {
+    console.log(error.message)
+      error = new Error('INVALID_DATA');
+      error.statusCode = 400;
+      throw error;
+    }
+  };
+
 module.exports = {
   campList,
+  getZoneByCampId,
+  getAvailableCampingZone,
+  getUnavailableCampingZone
 };

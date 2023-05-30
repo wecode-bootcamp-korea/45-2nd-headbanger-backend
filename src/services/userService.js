@@ -73,7 +73,6 @@ const kakaoLogin = async (accessToken) => {
         'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
       },
     });
-    console.log(kakaoResult);
     const {
       id: kakaoId,
       properties: { nickname: nickName },
