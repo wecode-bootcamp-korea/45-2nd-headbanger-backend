@@ -30,7 +30,7 @@ const createCamps = (campList) => {
       latitude, 
       longitude,
       description, 
-      thumbnail,
+      thumbnail, 
       view_map, 
       check_in, 
       check_out, 
