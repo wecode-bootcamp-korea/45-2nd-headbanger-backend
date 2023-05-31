@@ -12,12 +12,12 @@ const campPictureFixture = require('../fixtures/campPictures-fixture');
 const campingZoneFixture = require('../fixtures/campingZones-fixture');
 const zoneSizeOptionFixture = require('../fixtures/zoneSizeOptions-fixture');
 
-const themeData = require('../data/themes');
-const regionData = require('../data/regions');
-const campData = require('../data/camps');
-const campPictureData = require('../data/campPictures');
-const campingZoneData = require('../data/campingZones');
-const zoneSizeOptionData = require('../data/zoneSizeOptions');
+const themeData = require('../data/themes-data');
+const regionData = require('../data/regions-data');
+const campData = require('../data/camps-data');
+const campPictureData = require('../data/campPictures-data');
+const campingZoneData = require('../data/campingZones-data');
+const zoneSizeOptionData = require('../data/zoneSizeOptions-data');
 
 describe('Get Zone Information By CampId', () => {
   let app;

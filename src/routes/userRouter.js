@@ -9,10 +9,6 @@ router.post('/login', userController.login);
 router.post('/signup', userController.signUp);
 router.post('/kakao', userController.kakaoLogin);
 router.patch('/mypage/theme', validateToken, userController.modifyTheme);
-router.get(
-  '/reservationLists',
-  validateToken,
-  userController.getReservationLists
-);
+router.get('/reservationLists',validateToken,userController.getReservationLists);
 
 module.exports = { router };

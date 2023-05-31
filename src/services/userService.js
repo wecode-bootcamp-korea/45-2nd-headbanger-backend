@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
 const userDao = require('../models/userDao');
-const reservationdDao = require('../models/reservaionDao');
+const reservationDao = require('../models/reservationDao');
 
 const checkRegisteredEmail = async (email) => {
   return await userDao.checkRegisteredEmail(email);
@@ -29,7 +29,6 @@ const login = async (email, password) => {
       }
     );
   } catch (err) {
-    console.log(err);
     err = new Error('COULD NOT SEND TOKEN');
     err.statusCode = 400;
     throw err;
@@ -111,15 +110,15 @@ const modifyTheme = async (userId, themeId) => {
 };
 
 const getScheduledReservationLists = async (userId) => {
-  return reservationdDao.getScheduledReservationLists(userId);
+  return reservationDao.getScheduledReservationLists(userId);
 };
 
 const getPastReservationLists = async (userId) => {
-  return reservationdDao.getPastReservationLists(userId);
+  return reservationDao.getPastReservationLists(userId);
 };
 
 const getCancelledReservationLists = async (userId) => {
-  return reservationdDao.getCancelledReservationLists(userId);
+  return reservationDao.getCancelledReservationLists(userId);
 };
 
 module.exports = {
@@ -131,12 +130,4 @@ module.exports = {
   getScheduledReservationLists,
   getPastReservationLists,
   getCancelledReservationLists,
-};
-
-module.exports = {
-  checkRegisteredEmail,
-  login,
-  signUp,
-  kakaoLogin,
-  modifyTheme,
 };

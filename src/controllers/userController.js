@@ -82,13 +82,9 @@ const modifyTheme = catchAsync(async (req, res) => {
 const getReservationLists = catchAsync(async (req, res) => {
   const userId = req.user;
 
-  const scheduledReservation = await userService.getScheduledReservationLists(
-    userId
-  );
+  const scheduledReservation = await userService.getScheduledReservationLists(userId);
   const pastReservation = await userService.getPastReservationLists(userId);
-  const cancelledReservation = await userService.getCancelledReservationLists(
-    userId
-  );
+  const cancelledReservation = await userService.getCancelledReservationLists(userId);
 
   return res.status(200).send({
     scheduledList: scheduledReservation,
