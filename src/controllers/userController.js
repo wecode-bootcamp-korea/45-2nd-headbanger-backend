@@ -81,10 +81,25 @@ const modifyTheme = catchAsync(async (req, res) => {
   return res.status(200).json({ message: 'MODIFY SUCCESS' , result});
 })
 
-module.exports = { 
-  checkRegisteredEmail, 
-  login, 
-  signUp, 
+const getReservationLists = catchAsync(async(req, res) => {
+  const userId = req.user;
+
+  const scheduledReservation = await userService.getScheduledReservationLists(userId);
+  const pastReservation = await userService.getPastReservationLists(userId);
+  const cancelledReservation = await userService.getCancelledReservationLists(userId);
+
+  return res.status(200).send({
+    scheduledList: scheduledReservation,
+    pastList: pastReservation,
+    cancelledList: cancelledReservation
+  })
+})
+
+module.exports = {
+  checkRegisteredEmail,
+  login,
+  signUp,
   kakaoLogin,
-  modifyTheme
+  modifyTheme,
+  getReservationLists
 };

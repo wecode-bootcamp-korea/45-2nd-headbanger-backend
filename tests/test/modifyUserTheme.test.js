@@ -63,7 +63,7 @@ describe("Get Zone Information By CampId", () => {
     .patch("/users/mypage/theme")
     .set({authorization: token})
     .send({themeId: 1})
-    console.log("!!!!!!!!!!!!", response.body, "!!!!!!!!!!!!!!!")
+    
     expect(response.body.message).toEqual('MODIFY SUCCESS');
     expect(response.statusCode).toEqual(200);
     expect(response.body.result).toEqual(

@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
 const userDao = require('../models/userDao');
+const reservationdDao = require('../models/reservaionDao');
 
 const checkRegisteredEmail = async (email) => {
   return await userDao.checkRegisteredEmail(email);
@@ -108,10 +109,25 @@ const modifyTheme = async(userId, themeId) => {
   return userDao.modifyTheme(userId, themeId);
 }
 
+const getScheduledReservationLists = async(userId) => {
+  return reservationdDao.getScheduledReservationLists(userId)
+}
+
+const getPastReservationLists = async(userId) => {
+  return reservationdDao.getPastReservationLists(userId)
+}
+
+const getCancelledReservationLists = async(userId) => {
+  return reservationdDao.getCancelledReservationLists(userId)
+}
+
 module.exports = { 
   checkRegisteredEmail, 
   login, 
   signUp, 
   kakaoLogin,
-  modifyTheme
+  modifyTheme,
+  getScheduledReservationLists,
+  getPastReservationLists,
+  getCancelledReservationLists
 };
