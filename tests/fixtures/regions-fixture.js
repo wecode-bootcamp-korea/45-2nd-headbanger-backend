@@ -1,13 +1,10 @@
-const { dataSource } = require("../../src/models/dataSource")
+const { dataSource } = require('../../src/models/dataSource');
 
 const createRegions = (regionList) => {
   let data = [];
 
   for (const region of regionList) {
-    data.push([
-      region.id,
-      region.regionName
-    ]);
+    data.push([region.id, region.regionName]);
   }
 
   return dataSource.query(
@@ -15,9 +12,9 @@ const createRegions = (regionList) => {
       id,
       region_name
     ) VALUES ?
-  `, [ data ]
-  )
-}
+  `,
+    [data]
+  );
+};
 
-
-module.exports = { createRegions }
+module.exports = { createRegions };
