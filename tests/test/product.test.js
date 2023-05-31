@@ -80,6 +80,7 @@ describe('get camp detail by camp_id', () => {
           amenities: ['test_amenity_1', 'test_amenity_2', 'test_amenity_3'],
           region: 'test_region_1',
           theme: 'test_theme_1',
+          viewMap: 'view_map_test1',
         },
       ],
     });
