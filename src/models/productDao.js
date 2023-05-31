@@ -29,8 +29,10 @@ const campList = async (
       c.address,
       c.thumbnail,
       r.region_name,
+      c.longitude,
+      c.latitude,
   GROUP_CONCAT(DISTINCT a.amenity_name SEPARATOR ',') AS amenity,
-    t.theme,
+      t.theme,
   COUNT(w.id) AS wishlist_count${existuserId}
   FROM camps AS c
   JOIN regions AS r ON c.region_id = r.id

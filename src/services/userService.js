@@ -29,6 +29,7 @@ const login = async (email, password) => {
       }
     );
   } catch (err) {
+    console.log(err);
     err = new Error('COULD NOT SEND TOKEN');
     err.statusCode = 400;
     throw err;
@@ -105,29 +106,37 @@ const kakaoLogin = async (accessToken) => {
   }
 };
 
-const modifyTheme = async(userId, themeId) => {
+const modifyTheme = async (userId, themeId) => {
   return userDao.modifyTheme(userId, themeId);
-}
+};
 
-const getScheduledReservationLists = async(userId) => {
-  return reservationdDao.getScheduledReservationLists(userId)
-}
+const getScheduledReservationLists = async (userId) => {
+  return reservationdDao.getScheduledReservationLists(userId);
+};
 
-const getPastReservationLists = async(userId) => {
-  return reservationdDao.getPastReservationLists(userId)
-}
+const getPastReservationLists = async (userId) => {
+  return reservationdDao.getPastReservationLists(userId);
+};
 
-const getCancelledReservationLists = async(userId) => {
-  return reservationdDao.getCancelledReservationLists(userId)
-}
+const getCancelledReservationLists = async (userId) => {
+  return reservationdDao.getCancelledReservationLists(userId);
+};
 
-module.exports = { 
-  checkRegisteredEmail, 
-  login, 
-  signUp, 
+module.exports = {
+  checkRegisteredEmail,
+  login,
+  signUp,
   kakaoLogin,
   modifyTheme,
   getScheduledReservationLists,
   getPastReservationLists,
-  getCancelledReservationLists
+  getCancelledReservationLists,
+};
+
+module.exports = {
+  checkRegisteredEmail,
+  login,
+  signUp,
+  kakaoLogin,
+  modifyTheme,
 };

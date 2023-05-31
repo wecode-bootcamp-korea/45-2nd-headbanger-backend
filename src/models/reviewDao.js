@@ -56,6 +56,38 @@ const getReview = async (campId) => {
   }
 };
 
+const postReview = async (
+  userId,
+  campId,
+  view,
+  safety,
+  cost,
+  clean,
+  convenience,
+  content
+) => {
+  try {
+    await dataSource.query(
+      `INSERT INTO reviews 
+      (user_id,
+      camp_id,
+      view_score,
+      safety_score,
+      cost_score, 
+      clean_score,
+      convenience_score,
+      content)
+       VALUES (?,?,?,?,?,?,?,?)`,
+      [userId, campId, view, safety, cost, clean, convenience, content]
+    );
+  } catch (err) {
+    const error = new Error(`INVALID_DATA_INPUT😮`);
+    error.statusCode = 400;
+    throw error;
+  }
+};
+
 module.exports = {
   getReview,
+  postReview,
 };

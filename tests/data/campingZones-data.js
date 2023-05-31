@@ -1,6 +1,6 @@
 const testCampingZone = [
   {
-    id: 1, 
+    id: 1,
     zoneName: 'A1',
     x1: 11,
     x2: 12,
@@ -11,10 +11,10 @@ const testCampingZone = [
     y3: 23,
     y4: 24,
     zoneSizeOptionId: 1,
-    campId: 1
+    campId: 1,
   },
   {
-    id: 2, 
+    id: 2,
     zoneName: 'B1',
     x1: 11,
     x2: 12,
@@ -25,10 +25,10 @@ const testCampingZone = [
     y3: 23,
     y4: 24,
     zoneSizeOptionId: 2,
-    campId: 2
+    campId: 2,
   },
   {
-    id: 3, 
+    id: 3,
     zoneName: 'C1',
     x1: 11,
     x2: 12,
@@ -39,10 +39,10 @@ const testCampingZone = [
     y3: 23,
     y4: 24,
     zoneSizeOptionId: 3,
-    campId: 3
-  }
+    campId: 3,
+  },
 ];
 
-module.exports = { 
-  testCampingZone
-}
+module.exports = {
+  testCampingZone,
+};
