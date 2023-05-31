@@ -4,7 +4,7 @@ const { validateToken } = require('../middlewares/auth');
 
 const router = express.Router();
 
-router.post('',validateToken ,paymentController.completePayments);
+router.post('', validateToken, paymentController.completePayments);
 
 module.exports = {
   router,

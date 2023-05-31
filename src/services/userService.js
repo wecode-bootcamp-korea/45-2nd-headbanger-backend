@@ -121,6 +121,10 @@ const getCancelledReservationLists = async (userId) => {
   return reservationDao.getCancelledReservationLists(userId);
 };
 
+const getUserByid = async (userId) => {
+  return userDao.getUserByid(userId);
+};
+
 module.exports = {
   checkRegisteredEmail,
   login,
@@ -130,5 +134,6 @@ module.exports = {
   getScheduledReservationLists,
   getPastReservationLists,
   getCancelledReservationLists,
+  getUserByid,
 };
 

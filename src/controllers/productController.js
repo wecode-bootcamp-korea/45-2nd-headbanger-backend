@@ -70,14 +70,19 @@ const getCampById = catchAsync(async (req, res) => {
 });
 
 const getRecommendedProducts = catchAsync(async (req, res) => {
-  const result = await productService.getRecommendedProducts()
-  return res.status(200).json({result})
-})
+  const result = await productService.getRecommendedProducts();
+  return res.status(200).json({ result });
+});
+const getAllCategiries = catchAsync(async (req, res) => {
+  const data = await productService.getAllCategiries();
+  res.status(200).json({ data });
+});
 
 module.exports = {
   getProductList,
   getAllZoneByCampId,
   getAvailableCampingZone,
   getCampById,
-  getRecommendedProducts
+  getRecommendedProducts,
+  getAllCategiries,
 };

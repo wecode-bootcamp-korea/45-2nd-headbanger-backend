@@ -11,7 +11,7 @@ const validateToken = async (req, res, next) => {
     }
 
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    
+
     req.user = payload.id;
 
     next();
@@ -30,7 +30,6 @@ const validateTokenUserUndefined = async (req, res, next) => {
       userId = payload.id;
     }
     req.userId = userId;
-
     next();
   } catch (err) {
     next(err);

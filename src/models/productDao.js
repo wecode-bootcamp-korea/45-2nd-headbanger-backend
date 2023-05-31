@@ -62,6 +62,7 @@ const campList = async (
     );
     return result;
   } catch (error) {
+    console.log(error);
     error = new Error('INVALID_DATA');
     error.statusCode = 400;
     throw error;
@@ -236,9 +237,9 @@ const getCampById = async (campId) => {
 };
 
 const getRecommendedProducts = async () => {
-  try{
+  try {
     return dataSource.query(
-    `
+      `
     SELECT
      c.id campId,
      c.campsite_name campsiteName,
@@ -246,13 +247,84 @@ const getRecommendedProducts = async () => {
     FROM camps c
     JOIN regions r ON r.id = c.region_id
     ORDER BY RAND() limit 1
-    `)
+    `
+    );
   } catch (error) {
     error = new Error('DATASOURCE ERROR');
     error.statusCode = 400;
     throw error;
   }
-}
+};
+
+const getAllCategiries = async () => {
+  try {
+    const result = await dataSource.query(
+      `
+      SELECT 
+      (
+          SELECT JSON_ARRAYAGG(
+              JSON_OBJECT(
+                  'region_id', id, 
+                  'region_name', region_name,
+                  'region_count', region_count
+              )
+          )
+          FROM (
+              SELECT
+                  r.id AS id,
+                  r.region_name AS region_name,
+                  COUNT(*) AS region_count
+              FROM camps AS c
+              JOIN regions AS r ON c.region_id = r.id
+              GROUP BY r.id, r.region_name
+          ) AS region_subquery
+      ) AS region_result,
+      (
+          SELECT JSON_ARRAYAGG(
+              JSON_OBJECT(
+                  'theme_id', id,
+                  'theme_name', theme_name,
+                  'theme_count', theme_count
+              )
+          )
+          FROM (
+              SELECT
+                  t.id AS id,
+                  t.theme AS theme_name,
+                  COUNT(*) AS theme_count
+              FROM camps AS c
+              JOIN themes AS t ON c.theme_id = t.id
+              GROUP BY t.id, t.theme
+          ) AS theme_subquery
+      ) AS theme_result,
+      (
+          SELECT JSON_ARRAYAGG(
+              JSON_OBJECT(
+                  'amenity_id', id,
+                  'amenity_name', amenity_name,
+                  'amenity_count', amenity_count
+              )
+          )
+          FROM (
+              SELECT
+                  a.id AS id,
+                  a.amenity_name AS amenity_name,
+                  COUNT(*) AS amenity_count
+              FROM camps AS c
+              JOIN camps_amenities AS ca ON c.id = ca.camp_id
+              JOIN amenities AS a ON ca.amenity_id = a.id
+              GROUP BY a.id, a.amenity_name
+          ) AS amenity_subquery
+      ) AS amenity_result;  
+`
+    );
+    return result;
+  } catch (error) {
+    error = new Error('DATASOURCE ERROR');
+    error.statusCode = 400;
+    throw error;
+  }
+};
 
 module.exports = {
   campList,
@@ -261,5 +333,6 @@ module.exports = {
   getUnavailableCampingZone,
   checkCampById,
   getCampById,
-  getRecommendedProducts
+  getRecommendedProducts,
+  getAllCategiries,
 };

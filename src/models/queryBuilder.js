@@ -39,9 +39,9 @@ const getOrdering = (orderBy) => {
     case 'priceDesc':
       return 'ORDER BY c.price DESC, c.id ASC';
     case 'wishDesc':
-      return 'ORDER BY whislist_count DESC, c.id ASC';
+      return 'ORDER BY wishlist_count DESC, c.id ASC';
     case 'wishAsc':
-      return 'ORDER BY whislist_count ASC, c.id ASC';
+      return 'ORDER BY wishlist_count ASC, c.id ASC';
     default:
       return 'ORDER BY c.id';
   }

@@ -4,6 +4,7 @@ const {
   emailValidationCheck,
   passwordValidationCheck,
 } = require('../utils/validationCheck');
+const { dataSource } = require('../models/dataSource');
 
 const checkRegisteredEmail = catchAsync(async (req, res) => {
   const { email } = req.body;
@@ -97,6 +98,11 @@ const getReservationLists = catchAsync(async (req, res) => {
   });
 });
 
+const getUserByid = catchAsync(async (req, res) => {
+  const userId = req.user;
+  const result = await userService.getUserByid(userId);
+  return res.status(200).json({ result });
+});
 module.exports = {
   checkRegisteredEmail,
   login,
@@ -104,4 +110,5 @@ module.exports = {
   kakaoLogin,
   modifyTheme,
   getReservationLists,
+  getUserByid,
 };
