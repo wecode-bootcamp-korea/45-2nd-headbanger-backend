@@ -1,10 +1,6 @@
 const userService = require('../services/userService');
 const { catchAsync } = require('../middlewares/error');
-const {
-  emailValidationCheck,
-  passwordValidationCheck,
-} = require('../utils/validationCheck');
-const { dataSource } = require('../models/dataSource');
+const { emailValidationCheck, passwordValidationCheck } = require('../utils/validationCheck');
 
 const checkRegisteredEmail = catchAsync(async (req, res) => {
   const { email } = req.body;
@@ -103,6 +99,19 @@ const getUserByid = catchAsync(async (req, res) => {
   const result = await userService.getUserByid(userId);
   return res.status(200).json({ result });
 });
+
+const uploadProfileImage = catchAsync(async (req, res) => {
+  const userId = req.user;
+  const profileImage = req.file;
+  
+  if(!profileImage) return res.status(400).json({message: "IMAGE NOT FOUND"})
+  
+  const result = await userService.uploadProfileImage(userId, profileImage)
+
+  return res.status(201).json({ message: `SUCCESS CREATE`, result});
+  })
+
+
 module.exports = {
   checkRegisteredEmail,
   login,
@@ -111,4 +120,5 @@ module.exports = {
   modifyTheme,
   getReservationLists,
   getUserByid,
+  uploadProfileImage
 };

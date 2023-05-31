@@ -120,6 +120,10 @@ const getPastReservationLists = async (userId) => {
 const getCancelledReservationLists = async (userId) => {
   return reservationDao.getCancelledReservationLists(userId);
 };
+const uploadProfileImage  = async(userId, profileImage) => {
+
+  return userDao.uploadProfileImage(userId, profileImage);
+}
 
 const getUserByid = async (userId) => {
   return userDao.getUserByid(userId);
@@ -135,5 +139,6 @@ module.exports = {
   getPastReservationLists,
   getCancelledReservationLists,
   getUserByid,
+  uploadProfileImage
 };
 
