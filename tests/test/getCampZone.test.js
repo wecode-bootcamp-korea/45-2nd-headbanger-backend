@@ -27,15 +27,9 @@ describe('Get Zone Information By CampId', () => {
     await themeFixture.createThemes(themeData.testTheme);
     await regionFixture.createRegions(regionData.testRegion);
     await campFixture.createCamps(campData.testCamp);
-    await campPictureFixture.createCampPictures(
-      campPictureData.testCampPicture
-    );
-    await zoneSizeOptionFixture.createZoneSizeOptions(
-      zoneSizeOptionData.testZoneSizeOption
-    );
-    await campingZoneFixture.createCampingZones(
-      campingZoneData.testCampingZone
-    );
+    await campPictureFixture.createCampPictures(campPictureData.testCampPicture);
+    await zoneSizeOptionFixture.createZoneSizeOptions(zoneSizeOptionData.testZoneSizeOption);
+    await campingZoneFixture.createCampingZones(campingZoneData.testCampingZone);
   });
 
   const tableList = [
@@ -62,9 +56,10 @@ describe('Get Zone Information By CampId', () => {
     expect(response.statusCode).toEqual(404);
   });
 
-  test('SUCCESS: get campingZone', async () => {
-    const response = await request(app).get('/products/1/camping-zone');
-
+  test("SUCCESS: get campingZone", async () => {
+    const response = await request(app)
+    .get("/products/1/camping-zone")
+    
     expect(response.body.message).toEqual('GET SUCCESS');
     expect(response.statusCode).toEqual(200);
     expect(response.body.result).toEqual({
