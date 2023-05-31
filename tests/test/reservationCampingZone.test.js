@@ -15,15 +15,15 @@ const reservationStatusFixture = require('../fixtures/reservationStatus-fixture'
 const reservationFixture = require('../fixtures/reservations-fixture');
 const zonesReservationsFixture = require('../fixtures/zonesReservations-fixture');
 
-const themeData = require('../data/themes');
-const regionData = require('../data/regions');
-const campData = require('../data/camps');
-const zoneSizeOptionData = require('../data/zoneSizeOptions');
-const campingZoneData = require('../data/campingZones');
-const userData = require('../data/users');
-const reservationStatusData = require('../data/reservationStatus');
-const reservationData = require('../data/reservations');
-const zonesReservationData = require('../data/zonesReservations');
+const themeData = require('../data/themes-data');
+const regionData = require('../data/regions-data');
+const campData = require('../data/camps-data');
+const zoneSizeOptionData = require('../data/zoneSizeOptions-data');
+const campingZoneData = require('../data/campingZones-data');
+const userData = require('../data/users-data');
+const reservationStatusData = require('../data/reservationStatus-data');
+const reservationData = require('../data/reservations-data');
+const zonesReservationData = require('../data/zonesReservations-data');
 const { response } = require('express');
 
 describe('Get Available Unavailable Camping Zone', () => {

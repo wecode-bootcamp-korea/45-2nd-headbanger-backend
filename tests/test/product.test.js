@@ -10,12 +10,12 @@ const campsFixture = require('../fixtures/camps-fixture');
 const campsAmenitiesFixture = require('../fixtures/camps-amenities-fixture');
 const campsPicturesFixture = require('../fixtures/camps-pictures-fixture');
 
-const amenitiesData = require('../data/amenities');
-const themesData = require('../data/themes');
-const regionsData = require('../data/regions');
-const campsData = require('../data/camps');
-const campsAmenitiesData = require('../data/camp-amenities');
-const campsPicturesData = require('../data/camp-pictures');
+const amenitiesData = require('../data/amenities-data');
+const themesData = require('../data/themes-data');
+const regionsData = require('../data/regions-data');
+const campsData = require('../data/camps-data');
+const campsAmenitiesData = require('../data/camp-amenities-data');
+const campsPicturesData = require('../data/camp-pictures-data');
 
 const truncate = require('../test-client');
 

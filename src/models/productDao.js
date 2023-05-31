@@ -68,7 +68,7 @@ const campList = async (
   }
 };
 
-const getZoneByCampId = async (campId) => {
+const getAllZoneByCampId = async (campId) => {
   try {
     const [result] = await dataSource.query(
       `SELECT
@@ -235,7 +235,7 @@ const getCampById = async (campId) => {
 
 module.exports = {
   campList,
-  getZoneByCampId,
+  getAllZoneByCampId,
   getAvailableCampingZone,
   getUnavailableCampingZone,
   checkCampById,

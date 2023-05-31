@@ -23,8 +23,8 @@ const getProductList = async (
   return campList;
 };
 
-const getZoneByCampId = async (campId) => {
-  return productDao.getZoneByCampId(campId);
+const getAllZoneByCampId = async (campId) => {
+  return productDao.getAllZoneByCampId(campId);
 };
 
 const getAvailableCampingZone = async (campId, startDate, endDate) => {
@@ -51,7 +51,7 @@ const getCampById = async (campId) => {
 
 module.exports = {
   getProductList,
-  getZoneByCampId,
+  getAllZoneByCampId,
   getAvailableCampingZone,
   getUnavailableCampingZone,
   getCampById,

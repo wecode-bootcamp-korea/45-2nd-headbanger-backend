@@ -28,7 +28,6 @@ const getScheduledReservationLists = async (userId) => {
     
     return scheduledReservation
   } catch (error) {
-    console.log(error.message)
     error = new Error('INVALID_DATA');
     error.statusCode = 400;
     throw error;

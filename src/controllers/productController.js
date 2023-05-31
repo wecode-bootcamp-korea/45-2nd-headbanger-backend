@@ -19,10 +19,10 @@ const getProductList = catchAsync(async (req, res) => {
   return res.json({ result });
 });
 
-const getZoneByCampId = catchAsync(async (req, res) => {
+const getAllZoneByCampId = catchAsync(async (req, res) => {
   const { campId } = req.params;
 
-  const result = await productService.getZoneByCampId(campId);
+  const result = await productService.getAllZoneByCampId(campId);
 
   if (!result.zoneInfo) {
     const error = new Error('INVALID_DATA');
@@ -33,7 +33,7 @@ const getZoneByCampId = catchAsync(async (req, res) => {
   return res.status(200).json({ message: 'GET SUCCESS', result });
 });
 
-const getCampingZone = catchAsync(async (req, res) => {
+const getAvailableCampingZone = catchAsync(async (req, res) => {
   const { campId, startDate, endDate } = req.query;
 
   if (endDate < startDate)
@@ -64,7 +64,6 @@ const getCampById = catchAsync(async (req, res) => {
   const {
     params: { campId },
   } = req;
-
   const campDetail = await productService.getCampById(campId);
 
   return res.status(200).json({ message: 'SUCCESS', data: campDetail });
@@ -72,7 +71,7 @@ const getCampById = catchAsync(async (req, res) => {
 
 module.exports = {
   getProductList,
-  getZoneByCampId,
-  getCampingZone,
+  getAllZoneByCampId,
+  getAvailableCampingZone,
   getCampById,
 };
