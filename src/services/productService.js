@@ -1,4 +1,5 @@
 const productDao = require('../models/productDao');
+const upload = require('../utils/imageUpload')
 
 const getProductList = async (
   userId,
@@ -56,6 +57,18 @@ const getAllCategiries = async () => {
   return await productDao.getAllCategiries();
 };
 
+const uploadProfileImage = async(userId, profileImage) => {
+  try{
+    const uploadFile = await upload.uploadFile(profileImage)
+
+    return await productDao.uploadProfileImage(userId, uploadFile)
+  } catch (err) {
+    err = new Error('COULD NOT PROCESS REQUEST');
+    err.statusCode = 400;
+    throw err;
+  }
+}
+
 module.exports = {
   getProductList,
   getAllZoneByCampId,
@@ -64,4 +77,5 @@ module.exports = {
   getCampById,
   getRecommendedProducts,
   getAllCategiries,
+  uploadProfileImage
 };

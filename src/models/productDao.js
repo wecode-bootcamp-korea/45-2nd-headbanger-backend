@@ -328,6 +328,45 @@ const getAllCategiries = async () => {
   }
 };
 
+const uploadProfileImage = async (userId, imageURL) => {
+  const queryRunner = dataSource.createQueryRunner();
+
+  await queryRunner.connect();
+
+  await queryRunner.startTransaction();
+
+  try {
+    const result = await queryRunner.query(
+      `UPDATE users
+        set profile_image = ?
+      WHERE id = ?
+      `, [imageURL, userId]
+    )
+
+    if (result.affectedRows !== 1) throw new Error ('INVALID_MODIFICATION');
+
+    const modifyResult = await queryRunner.query(
+      `SELECT
+        name,
+        profile_image
+      FROM users
+      WHERE id = ?
+      `, [userId]
+    )
+
+    await queryRunner.commitTransaction();
+
+    return modifyResult;
+  } catch (error) {
+    await queryRunner.rollbackTransaction();
+    error = new Error('INVALID_DATA');
+    error.statusCode = 400;
+    throw error;
+  } finally {
+    await queryRunner.release();
+  }
+};
+
 module.exports = {
   campList,
   getAllZoneByCampId,
@@ -337,4 +376,5 @@ module.exports = {
   getCampById,
   getRecommendedProducts,
   getAllCategiries,
+  uploadProfileImage
 };

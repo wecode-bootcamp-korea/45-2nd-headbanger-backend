@@ -71,10 +71,19 @@ const getRecommendedProducts = catchAsync(async (req, res) => {
   const result = await productService.getRecommendedProducts();
   return res.status(200).json({ result });
 });
+
 const getAllCategiries = catchAsync(async (req, res) => {
   const data = await productService.getAllCategiries();
   res.status(200).json({ data });
 });
+
+const uploadProfileImage = catchAsync(async(req, res) => {
+  const userId = req.user;
+  const profileImage = req.file;
+  const result = await productService.uploadProfileImage(userId, profileImage);
+
+  return res.status(200).json({result})
+})
 
 module.exports = {
   getProductList,
@@ -83,4 +92,5 @@ module.exports = {
   getCampById,
   getRecommendedProducts,
   getAllCategiries,
+  uploadProfileImage
 };
