@@ -215,7 +215,9 @@ const getCampById = async (campId) => {
       r.region_name AS region,
       c.check_in AS checkIn,
       c.check_out AS checkOut,
-      c.view_map AS viewMap
+      c.view_map AS viewMap,
+      c.latitude,
+      c.longitude
     FROM camps c
     LEFT JOIN regions r ON r.id = c.region_id
     LEFT JOIN themes t ON c.theme_id = t.id
