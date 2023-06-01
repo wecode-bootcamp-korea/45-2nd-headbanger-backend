@@ -11,15 +11,8 @@ const validateToken = async (req, res, next) => {
     }
 
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    const user = payload.id;
-    if (!user) {
-      const err = new Error('INVALID_USER');
-      err.statusCode = 401;
-
-      throw err;
-    }
-
-    req.user = user;
+    
+    req.user = payload.id;
 
     next();
   } catch (err) {
