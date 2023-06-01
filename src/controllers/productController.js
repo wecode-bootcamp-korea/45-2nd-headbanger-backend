@@ -69,9 +69,15 @@ const getCampById = catchAsync(async (req, res) => {
   return res.status(200).json({ message: 'SUCCESS', data: campDetail });
 });
 
+const getRecommendedProducts = catchAsync(async (req, res) => {
+  const result = await productService.getRecommendedProducts()
+  return res.status(200).json({result})
+})
+
 module.exports = {
   getProductList,
   getAllZoneByCampId,
   getAvailableCampingZone,
   getCampById,
+  getRecommendedProducts
 };

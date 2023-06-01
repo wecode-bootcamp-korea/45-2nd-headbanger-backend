@@ -235,6 +235,25 @@ const getCampById = async (campId) => {
   }
 };
 
+const getRecommendedProducts = async () => {
+  try{
+    return dataSource.query(
+    `
+    SELECT
+     c.id campId,
+     c.campsite_name campsiteName,
+     r.region_name regionName
+    FROM camps c
+    JOIN regions r ON r.id = c.region_id
+    ORDER BY RAND() limit 1
+    `)
+  } catch (error) {
+    error = new Error('DATASOURCE ERROR');
+    error.statusCode = 400;
+    throw error;
+  }
+}
+
 module.exports = {
   campList,
   getAllZoneByCampId,
@@ -242,4 +261,5 @@ module.exports = {
   getUnavailableCampingZone,
   checkCampById,
   getCampById,
+  getRecommendedProducts
 };
