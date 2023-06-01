@@ -34,7 +34,10 @@ describe('Get Zone Information By CampId', () => {
     await userFixture.createUsers(userData.testUser);
   });
 
-  const tableList = ['themes', 'users'];
+  const tableList = [
+    'themes', 
+    'users'
+  ];
   afterAll(async () => {
     await truncate.truncateTables(tableList);
   });
@@ -70,7 +73,7 @@ describe('Get Zone Information By CampId', () => {
       {
         userId: 1,
         themeId: 1,
-        theme: '산',
+        theme: 'test_theme_1',
       },
     ]);
   });

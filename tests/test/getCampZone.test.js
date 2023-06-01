@@ -45,7 +45,7 @@ describe('Get Zone Information By CampId', () => {
   });
 
   test('FAILED: invalid campingZone', async () => {
-    const response = await request(app).get('/camps/5/camping-zone');
+    const response = await request(app).get('/products/camps/5/camping-zone');
 
     expect(response.statusCode).toEqual(400);
     expect(response.body.message).toEqual('INVALID_DATA');
@@ -58,7 +58,7 @@ describe('Get Zone Information By CampId', () => {
 
   test("SUCCESS: get campingZone", async () => {
     const response = await request(app)
-    .get("/products/1/camping-zone")
+    .get("/products/camps/1/camping-zone")
     
     expect(response.body.message).toEqual('GET SUCCESS');
     expect(response.statusCode).toEqual(200);
@@ -79,11 +79,10 @@ describe('Get Zone Information By CampId', () => {
             y4: 24,
           },
           additionalPrice: 0,
-        },
-        {
+        },{
           id: 2,
-          zoneName: 'B1',
-          maxPeople: 4,
+          zoneName: 'A2',
+          maxPeople: 2,
           coordinates: {
             x1: 11,
             x2: 12,
@@ -94,7 +93,7 @@ describe('Get Zone Information By CampId', () => {
             y3: 23,
             y4: 24,
           },
-          additionalPrice: 30000,
+          additionalPrice: 0,
         },
       ],
     });

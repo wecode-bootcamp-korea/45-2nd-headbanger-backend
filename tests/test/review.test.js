@@ -51,7 +51,7 @@ describe('getReview', () => {
   });
   test(`SUCCESS to POST_REVIEW WHERE campid `, async () => {
     const response = await request(app)
-      .post(`/review`)
+      .post(`/reviews`)
       .set({ authorization: token })
       .send({
         campId: '1',
@@ -68,7 +68,7 @@ describe('getReview', () => {
   });
   test(`FAIL to POST_REVIEW : KEY_ERROR`, async () => {
     const response = await request(app)
-      .post('/review')
+      .post('/reviews')
       .set({ authorization: token })
       .send({
         campId: '1',
@@ -111,21 +111,21 @@ describe('getReview', () => {
       ],
     };
 
-    const response = await request(app).get('/review/2');
+    const response = await request(app).get('/reviews/2');
 
     expect(response.statusCode).toEqual(200);
     expect(response.body.result).toEqual(expectedReview);
   });
 
   test(`FAil to get review WHERE campid : not campId data`, async () => {
-    const response = await request(app).get('/review/3');
+    const response = await request(app).get('/reviews/3');
 
     expect(response.statusCode).toEqual(400);
     expect(response.body.message).toEqual(undefined);
   });
 
   test(`FAIL to get review WHERE campid : not insert campid number`, async () => {
-    const response = await request(app).get('/review/w');
+    const response = await request(app).get('/reviews/w');
 
     expect(response.statusCode).toEqual(400);
     expect(response.body.message).toEqual(`INVALID_DATA_INPUT😮`);

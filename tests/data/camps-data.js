@@ -44,6 +44,21 @@ const testCamp = [
     regionId: 1,
     themeId: 1,
   },
+  {
+    id: 4,
+    campsiteName: 'campsite_name_test4',
+    price: 45000,
+    address: 'address_test4',
+    latitude: 235.7420,
+    longitude: 183.4529,
+    description: 'description_test4',
+    thumbnail: 'thumbnail_test4',
+    viewMap: 'view_map_test4',
+    checkIn: '16:00',
+    checkOut: '12:00',
+    regionId: 1,
+    themeId: 1,
+  },
 ];
 
 module.exports = {

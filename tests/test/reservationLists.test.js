@@ -29,16 +29,16 @@ const reservationStatusFixture = require('../fixtures/reservationStatus-fixture'
 const reservationFixture = require('../fixtures/reservations-fixture');
 const zonesReservationsFixture = require('../fixtures/zonesReservations-fixture');
 
-const themeData = require('../data/themes');
-const regionData = require('../data/regions');
-const campData = require('../data/camps');
-const campPictureData = require('../data/camp-pictures');
-const zoneSizeOptionData = require('../data/zoneSizeOptions');
-const campingZoneData = require('../data/campingZones');
-const userData = require('../data/users');
-const reservationStatusData = require('../data/reservationStatus');
-const reservationData = require('../data/reservations');
-const zonesReservationData = require('../data/zonesReservations');
+const themeData = require('../data/themes-data');
+const regionData = require('../data/regions-data');
+const campData = require('../data/camps-data');
+const campPictureData = require('../data/campPictures-data');
+const zoneSizeOptionData = require('../data/zoneSizeOptions-data');
+const campingZoneData = require('../data/campingZones-data');
+const userData = require('../data/users-data');
+const reservationStatusData = require('../data/reservationStatus-data');
+const reservationData = require('../data/reservations-data');
+const zonesReservationData = require('../data/zonesReservations-data');
 const { response } = require('express');
 
 describe("Get Available Unavailable Camping Zone", () => {
@@ -65,7 +65,7 @@ describe("Get Available Unavailable Camping Zone", () => {
 
   test("SUCCESS: get campingZone", async () => {
     const response = await request(app)
-    .get("/users/reservationLists")
+    .get("/users/reservation-lists")
     .set({authorization: token})
 
     expect(response.statusCode).toEqual(200);
@@ -77,9 +77,21 @@ describe("Get Available Unavailable Camping Zone", () => {
           reservationNumber: 'reservation-number-test-12345',
           startDate: '2023-06-03',
           endDate: '2023-06-05',
-          totalMembers: 1,
+          totalMembers: 4,
+          totalPrice: '40000.00',
+          campingZoneNames: [
+              'A2'
+          ]
+        },
+        {
+          campsiteName: 'campsite_name_test1',
+          thumbnail: 'thumbnail_test1',
+          reservationNumber: 'reservation-number-test-12345',
+          startDate: '2023-07-01',
+          endDate: '2023-07-03',
+          totalMembers: 2,
           totalPrice: '10000.00',
-          zoneNames: [
+          campingZoneNames: [
               'A1'
           ]
         }
@@ -89,11 +101,11 @@ describe("Get Available Unavailable Camping Zone", () => {
           campsiteName: 'campsite_name_test2',
           thumbnail: 'thumbnail_test2',
           reservationNumber: 'reservation-number-test-12345',
-          startDate: '2023-05-03',
-          endDate: '2023-05-05',
-          totalMembers: 2,
-          totalPrice: '20000.00',
-          zoneNames: [
+          startDate: '2023-04-03',
+          endDate: '2023-04-05',
+          totalMembers: 3,
+          totalPrice: '30000.00',
+          campingZoneNames: [
               'B1'
           ]
         }
@@ -103,11 +115,11 @@ describe("Get Available Unavailable Camping Zone", () => {
           campsiteName:'campsite_name_test3',
           thumbnail: 'thumbnail_test3',
           reservationNumber: 'reservation-number-test-12345',
-          startDate: '2023-07-03',
-          endDate: '2023-07-05',
-          totalMembers: 3,
-          totalPrice: '30000.00',
-          zoneNames: [
+          startDate: '2023-08-01',
+          endDate: '2023-08-05',
+          totalMembers: 2,
+          totalPrice: '40000.00',
+          campingZoneNames: [
               'C1'
           ]
         }

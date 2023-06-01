@@ -9,8 +9,8 @@ const jwt = require('jsonwebtoken');
 const themeFixture = require('../fixtures/themes-fixture');
 const userFixture = require('../fixtures/users-fixture');
 
-const themeData = require('../data/themes');
-const userData = require('../data/users');
+const themeData = require('../data/themes-data');
+const userData = require('../data/users-data');
 
 const truncate = require('../test-client');
 
