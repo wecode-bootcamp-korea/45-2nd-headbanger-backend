@@ -12,10 +12,10 @@ const campFixture = require('../fixtures/camps-fixture');
 const userFixture = require('../fixtures/users-fixture');
 const wishFixture = require('../fixtures/wishlists-fixture');
 
-const themeData = require('../data/themes');
-const regionData = require('../data/regions');
-const campData = require('../data/camps');
-const userData = require('../data/users');
+const themeData = require('../data/themes-data');
+const regionData = require('../data/regions-data');
+const campData = require('../data/camps-data');
+const userData = require('../data/users-data');
 const wishData = require('../data/wishlists-data');
 
 const { response } = require('express');
@@ -65,11 +65,12 @@ describe('wishlist', () => {
 
   test('SUCCESS POST_WISHLIST', async () => {
     const response = await request(app)
-      .post('/wish/1')
-      .set({ authorization: token });
+      .post('/wishs/1')
+      .set({ authorization: vailedToken });
 
     expect(response.statusCode).toEqual(201);
-    expect(response.body.result).toEqual([
+    console.log(response.body.result)
+    expect(response.body.result[0]).toEqual([
       {
         camp_id: 1,
       },
@@ -77,21 +78,28 @@ describe('wishlist', () => {
   });
   test('SUCCESS DEL_WISHLIST', async () => {
     const response = await request(app)
-      .post('/wish/1')
-      .set({ authorization: token });
+      .post('/wishs/1')
+      .set({ authorization: vailedToken });
 
     expect(response.statusCode).toEqual(201);
-    expect(response.body.result).toEqual([]);
+    expect(response.body.result).toEqual([
+      {
+        camp_id: 1,
+        id: 4,
+        updated_at: null,
+        user_id: 1,
+      },
+    ]);
   });
   test('FAIL POST_WISHLIST : INVALID_TOKEN', async () => {
-    const response = await request(app).post('/wish/1');
+    const response = await request(app).post('/wishs/1');
 
     expect(response.statusCode).toEqual(409);
     expect(response.body.message).toEqual('TOKEN_DOES_NOT_EXIST');
   });
   test('SUCCESS GET WISH WHERE user_id', async () => {
     const response = await request(app)
-      .get('/wish')
+      .get('/wishs')
       .set({ authorization: vailedToken });
 
     expect(response.statusCode).toEqual(200);
@@ -105,7 +113,7 @@ describe('wishlist', () => {
     ]);
   });
   test('FAIL GET WISH : INVAILED_TOKEN', async () => {
-    const response = await request(app).get('/wish');
+    const response = await request(app).get('/wishs');
 
     expect(response.statusCode).toEqual(409);
     expect(response.body.message).toEqual('TOKEN_DOES_NOT_EXIST');

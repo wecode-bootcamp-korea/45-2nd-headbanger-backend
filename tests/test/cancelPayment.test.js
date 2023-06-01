@@ -17,16 +17,16 @@ const reservationStatusFixture = require('../fixtures/reservationStatus-fixture'
 const reservationFixture = require('../fixtures/reservations-fixture');
 const zonesReservationsFixture = require('../fixtures/zonesReservations-fixture');
 
-const themeData = require('../data/themes');
-const regionData = require('../data/regions');
-const campData = require('../data/camps');
-const campPictureData = require('../data/campPictures');
-const zoneSizeOptionData = require('../data/zoneSizeOptions');
-const campingZoneData = require('../data/campingZones');
-const userData = require('../data/users');
-const reservationStatusData = require('../data/reservationStatus');
-const reservationData = require('../data/reservations');
-const zonesReservationData = require('../data/zonesReservations');
+const themeData = require('../data/themes-data');
+const regionData = require('../data/regions-data');
+const campData = require('../data/camps-data');
+const campPictureData = require('../data/campPictures-data');
+const zoneSizeOptionData = require('../data/zoneSizeOptions-data');
+const campingZoneData = require('../data/campingZones-data');
+const userData = require('../data/users-data');
+const reservationStatusData = require('../data/reservationStatus-data');
+const reservationData = require('../data/reservations-data');
+const zonesReservationData = require('../data/zonesReservations-data');
 const { response } = require('express');
 
 const userId = 1;
@@ -58,33 +58,45 @@ describe("Get Available Unavailable Camping Zone", () => {
     await zonesReservationsFixture.createZonesReservations(zonesReservationData.testZonesReservation);
   });
 
-  const tableList = ['themes', 'regions', 'camps', 'camp_pictures', 'zone_size_options', 'camping_zones', 'users', 'reservation_status', 'reservations', 'zones_reservations']
+  const tableList = [
+    'themes', 
+    'regions', 
+    'camps', 
+    'camp_pictures', 
+    'zone_size_options', 
+    'camping_zones', 
+    'users', 
+    'reservation_status', 
+    'reservations', 
+    'zones_reservations'
+  ]
   afterAll(async () => {
     await truncate.truncateTables(tableList)
   });
 
   test("FAILED: token does not exist", async () => {
     const response = await request(app)
-      .patch("/payments")
+      .patch("/reservations")
       .send({reservationId: 4})
 
       expect(response.statusCode).toEqual(409);
       expect(response.body.message).toEqual('TOKEN_DOES_NOT_EXIST');
   });
 
-  test("FAILED: cancel payment", async () => {
+  test("FAILED: cancel reservations", async () => {
     const response = await request(app)
-      .patch("/payments")
+      .patch("/reservations")
       .set({authorization: token})
-      .send({reservationId: 4})
+      .send({reservationId: 5})
+      console.log(response)
 
       expect(response.statusCode).toEqual(400);
-      expect(response.body.message).toEqual('CANCEL FAIL');
+      expect(response.body.message).toEqual('INVALID_DATA');
   });
 
-  test("SUCCESS: cancel payment", async () => {
+  test("SUCCESS: cancel reservations", async () => {
     const response = await request(app)
-    .patch("/payments")
+    .patch("/reservations")
     .set({authorization: token})
     .send({reservationId: 1})
 

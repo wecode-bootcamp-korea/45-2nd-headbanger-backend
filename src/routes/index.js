@@ -10,9 +10,9 @@ const paymentRouter = require('./paymentRouter');
 const router = express.Router();
 
 router.use('/users', userRouter.router);
-router.use('/review', reviewRouter.router);
+router.use('/reviews', reviewRouter.router);
 router.use('/products', productRouter.router);
-router.use('/wish', wishRouter.router);
+router.use('/wishs', wishRouter.router);
 router.use('/reservations', reservationRouter.router);
 router.use('/payments', paymentRouter.router);
 

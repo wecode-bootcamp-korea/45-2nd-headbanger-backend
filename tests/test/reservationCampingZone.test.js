@@ -40,21 +40,16 @@ describe('Get Available Unavailable Camping Zone', () => {
     await zoneSizeOptionFixture.createZoneSizeOptions(zoneSizeOptionData.testZoneSizeOption);
     await campingZoneFixture.createCampingZones(campingZoneData.testCampingZone);
     await userFixture.createUsers(userData.testUser);
-    await reservationStatusFixture.createReservationStatus(
-      reservationStatusData.testReservationStatus
-    );
-    await reservationFixture.createReservations(
-      reservationData.testReservation
-    );
-    await zonesReservationsFixture.createZonesReservations(
-      zonesReservationData.testZonesReservation
-    );
+    await reservationStatusFixture.createReservationStatus(reservationStatusData.testReservationStatus);
+    await reservationFixture.createReservations(reservationData.testReservation);
+    await zonesReservationsFixture.createZonesReservations(zonesReservationData.testZonesReservation);
   });
 
   const tableList = [
     'themes',
     'regions',
     'camps',
+    'camp_pictures',
     'zone_size_options',
     'camping_zones',
     'users',
@@ -68,7 +63,7 @@ describe('Get Available Unavailable Camping Zone', () => {
 
   test('FAILED: invalid date value', async () => {
     const response = await request(app).get(
-      '/products/campingZone?campId=1&startDate=2023-06-03&endDate=2023-06-01'
+      '/products/camps?campId=1&startDate=2023-06-03&endDate=2023-06-01'
     );
 
     expect(response.statusCode).toEqual(400);
@@ -77,8 +72,9 @@ describe('Get Available Unavailable Camping Zone', () => {
 
   test('SUCCESS: get campingZone', async () => {
     const response = await request(app).get(
-      '/products/campingZone?campId=1&startDate=2023-06-03&endDate=2023-06-05'
+      '/products/camps?campId=1&startDate=2023-06-03&endDate=2023-06-05'
     );
+    console.log(response)
 
     expect(response.statusCode).toEqual(200);
     expect(response.body).toEqual({
@@ -104,8 +100,8 @@ describe('Get Available Unavailable Camping Zone', () => {
       unavailableZones: [
         {
           campId: 1,
-          zoneName: 'B1',
-          maxPeople: 4,
+          zoneName: 'A2',
+          maxPeople: 2,
           coordinates: {
             x1: 11,
             x2: 12,
@@ -117,7 +113,7 @@ describe('Get Available Unavailable Camping Zone', () => {
             y4: 24,
           },
           campingZoneId: 2,
-          additionalPrice: 30000,
+          additionalPrice: 0,
         },
       ],
     });

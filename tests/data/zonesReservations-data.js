@@ -14,6 +14,11 @@ const testZonesReservation = [
     reservationId: 3,
     campingZoneId: 3,
   },
+  {
+    id: 4,
+    reservationId: 4,
+    campingZoneId: 4,
+  },
 ];
 
 module.exports = {
