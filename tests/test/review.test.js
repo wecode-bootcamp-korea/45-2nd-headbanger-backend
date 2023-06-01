@@ -23,7 +23,7 @@ const userId = 2;
 const token = jwt.sign(
   {
     id: userId,
-  },
+  }
   process.env.JWT_SECRET,
   {
     expiresIn: process.env.JWT_EXP,
@@ -121,7 +121,7 @@ describe('getReview', () => {
     const response = await request(app).get('/review/3');
 
     expect(response.statusCode).toEqual(400);
-    expect(response.body.message).toEqual('INVALID_campId😦');
+    expect(response.body.message).toEqual(undefined);
   });
 
   test(`FAIL to get review WHERE campid : not insert campid number`, async () => {

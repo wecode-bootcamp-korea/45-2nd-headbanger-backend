@@ -7,7 +7,21 @@ const getReview = catchAsync(async (req, res) => {
 
   const result =
     isArray.reviews[0] == undefined
-      ? res.status(400).json({ message: `INVALID_campId😦` })
+      ? res.status(400).json({
+          result: {
+            reviews: [],
+            total_grade: [
+              {
+                avg_view: 0,
+                avg_safety: 0,
+                avg_cost: 0,
+                avg_clean: 0,
+                avg_convenience: 0,
+                total_avg_grade: 0,
+              },
+            ],
+          },
+        })
       : res.status(200).json({ result: isArray });
   return result;
 });
