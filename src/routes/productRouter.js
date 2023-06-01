@@ -13,6 +13,7 @@ router.get(
 );
 router.get('/camps/:campId/camping-zone', productController.getAllZoneByCampId);
 router.get('/camps', productController.getAvailableCampingZone);
+router.get('/recommended-products', productController.getRecommendedProducts)
 
 module.exports = {
   router,
