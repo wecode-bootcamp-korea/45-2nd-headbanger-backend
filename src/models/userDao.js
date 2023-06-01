@@ -156,6 +156,27 @@ const modifyTheme = async (userId, themeId) => {
   }
 };
 
+const getUserByid = async (userId) => {
+  try {
+    return await dataSource.query(
+      `SELECT 
+    u.id,
+    u.name,
+    u.theme_id,
+    u.profile_image
+  FROM users AS u
+  WHERE u.id =?
+  `,
+      [userId]
+    );
+  } catch (error) {
+    console.log(error);
+    error = new Error('INVALID_DATA');
+    error.statusCode = 400;
+    throw error;
+  }
+};
+
 module.exports = {
   checkRegisteredEmail,
   getUserByEmail,
@@ -164,4 +185,5 @@ module.exports = {
   kakaoSignUp,
   getUserByKakaoId,
   modifyTheme,
+  getUserByid,
 };
