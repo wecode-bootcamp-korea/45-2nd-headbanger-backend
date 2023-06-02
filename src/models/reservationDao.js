@@ -3,6 +3,7 @@ const { reservationStatusEnum } = require('./enum');
 
 const reservationListQuery = `
   SELECT
+    c.id campId,
     c.campsite_name campsiteName,
     c.thumbnail,
     r.reservation_number reservationNumber,
@@ -22,7 +23,7 @@ const getScheduledReservationLists = async (userId) => {
   try{
     const query = `${reservationListQuery}
     WHERE r.reservation_status_id = ? AND r.user_id = ?
-    GROUP BY c.campsite_name, c.thumbnail, r.reservation_number, r.start_date, r.end_date, r.total_members, r.total_price`;
+    GROUP BY c.campsite_name, c.thumbnail, c.id, r.reservation_number, r.start_date, r.end_date, r.total_members, r.total_price`;
 
     const scheduledReservation = await dataSource.query(query, [reservationStatusEnum.SCHEDULED, userId])
     
@@ -38,7 +39,7 @@ const getPastReservationLists = async (userId) => {
   try{
     const query = `${reservationListQuery}
     WHERE r.reservation_status_id = ? AND r.user_id = ?
-    GROUP BY c.campsite_name, c.thumbnail, r.reservation_number, r.start_date, r.end_date, r.total_members, r.total_price`;
+    GROUP BY c.campsite_name, c.thumbnail, c.id, r.reservation_number, r.start_date, r.end_date, r.total_members, r.total_price`;
 
     const pastReservation = await dataSource.query(query, [reservationStatusEnum.PAST, userId])
     
@@ -54,7 +55,7 @@ const getCancelledReservationLists = async (userId) => {
   try{
     const query = `${reservationListQuery}
     WHERE r.reservation_status_id = ? AND r.user_id = ?
-    GROUP BY c.campsite_name, c.thumbnail, r.reservation_number, r.start_date, r.end_date, r.total_members, r.total_price`;
+    GROUP BY c.campsite_name, c.thumbnail, c.id, r.reservation_number, r.start_date, r.end_date, r.total_members, r.total_price`;
 
     const cancelledReservation = await dataSource.query(query, [reservationStatusEnum.CANCELLED, userId])
     

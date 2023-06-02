@@ -74,7 +74,6 @@ describe('Get Available Unavailable Camping Zone', () => {
     const response = await request(app).get(
       '/products/camps?campId=1&startDate=2023-06-03&endDate=2023-06-05'
     );
-    console.log(response)
 
     expect(response.statusCode).toEqual(200);
     expect(response.body).toEqual({

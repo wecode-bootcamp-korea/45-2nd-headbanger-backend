@@ -39,24 +39,22 @@ const getAvailableCampingZone = catchAsync(async (req, res) => {
   if (endDate < startDate)
     return res.status(400).json({ message: 'INVALID_DATA' });
 
-  const availableZone = await productService.getAvailableCampingZone(
-    campId,
-    startDate,
-    endDate
-  );
+    const unavailableZone = await productService.getUnavailableCampingZone(
+      campId, startDate, endDate
+    );
 
-  let availableZoneNames = availableZone.campingZones.map(
-    (zoneNames) => zoneNames.zoneName
-  );
+    let unavailableZoneNames = unavailableZone.campingZones.map(
+      (zoneNames) => zoneNames.zoneName
+    );
 
-  const unavailableZone = await productService.getUnavailableCampingZone(
+  const availableZone = await productService.getAvailableCampingZone( 
     campId,
-    availableZoneNames
+    unavailableZoneNames
   );
 
   return res.status(200).json({
-    availableZones: availableZone.campingZones,
     unavailableZones: unavailableZone.campingZones,
+    availableZones: availableZone.campingZones,
   });
 });
 

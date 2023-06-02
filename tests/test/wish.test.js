@@ -69,7 +69,6 @@ describe('wishlist', () => {
       .set({ authorization: vailedToken });
 
     expect(response.statusCode).toEqual(201);
-    console.log(response.body.result)
     expect(response.body.result[0]).toEqual([
       {
         camp_id: 1,
