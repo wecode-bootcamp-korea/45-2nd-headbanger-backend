@@ -27,12 +27,12 @@ const getAllZoneByCampId = async (campId) => {
   return productDao.getAllZoneByCampId(campId);
 };
 
-const getAvailableCampingZone = async (campId, startDate, endDate) => {
-  return productDao.getAvailableCampingZone(campId, startDate, endDate);
+const getUnavailableCampingZone = async (campId, startDate, endDate) => {
+  return  productDao.getUnavailableCampingZone(campId, startDate, endDate);
 };
 
-const getUnavailableCampingZone = async (campId, availableZoneNames) => {
-  return productDao.getUnavailableCampingZone(campId, availableZoneNames);
+const getAvailableCampingZone = async (campId, unavailableZoneNames) => {
+  return productDao.getAvailableCampingZone(campId, unavailableZoneNames);
 };
 
 const getCampById = async (campId) => {

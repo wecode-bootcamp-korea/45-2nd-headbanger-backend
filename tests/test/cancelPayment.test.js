@@ -88,7 +88,6 @@ describe("Get Available Unavailable Camping Zone", () => {
       .patch("/reservations")
       .set({authorization: token})
       .send({reservationId: 5})
-      console.log(response)
 
       expect(response.statusCode).toEqual(400);
       expect(response.body.message).toEqual('INVALID_DATA');

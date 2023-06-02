@@ -1,5 +1,6 @@
 const { dataSource } = require('./dataSource');
 const queryBuilder = require('./queryBuilder');
+const { reservationStatusEnum } = require('./enum');
 
 const campList = async (
   userId,
@@ -62,7 +63,6 @@ const campList = async (
     );
     return result;
   } catch (error) {
-    console.log(error);
     error = new Error('INVALID_DATA');
     error.statusCode = 400;
     throw error;
@@ -110,7 +110,10 @@ const campingZoneQuery = `SELECT
     JSON_OBJECT(
       "campId", c.id,
       "campingZoneId", cz.id,
+      "reservationId", r.id,
       "zoneName", cz.zone_name,
+      "startDate", r.start_date,
+      "endDate", r.end_date,
       "additionalPrice", zso.additional_price,
       "maxPeople", zso.max_people,
       "coordinates", 
@@ -128,22 +131,20 @@ const campingZoneQuery = `SELECT
   )campingZones
 FROM camps c
 JOIN camping_zones cz ON c.id = cz.camp_id
-JOIN zone_size_options zso ON cz.zone_size_option_id = zso.id`;
+JOIN zone_size_options zso ON cz.zone_size_option_id = zso.id
+LEFT JOIN zones_reservations zr ON cz.id = zr.camping_zone_id
+LEFT JOIN reservations r ON zr.reservation_id = r.id`;
 
-const getAvailableCampingZone = async (campId, startDate, endDate) => {
+const getUnavailableCampingZone = async (campId, startDate, endDate) => {
   try {
-    const [availableZone] = await dataSource.query(
+    const [unavailableZone] = await dataSource.query(
       `${campingZoneQuery} 
-    LEFT JOIN zones_reservations zr ON cz.id = zr.camping_zone_id
-    LEFT JOIN reservations r ON zr.reservation_id = r.id
-    WHERE (NOT (? < r.end_date && r.start_date < ?)
-      OR r.start_date IS NULL
-      OR r.end_date IS NULL
-      OR r.reservation_status_id = 3)
-      AND c.id = ?`,
-      [startDate, endDate, campId]
+        WHERE (? < r.end_date AND r.start_date < ?)
+        AND c.id = ?
+        AND NOT r.reservation_status_id = ?`,
+      [startDate, endDate, campId, reservationStatusEnum.CANCELLED]
     );
-    return availableZone;
+    return unavailableZone;
   } catch (error) {
     error = new Error('INVALID_DATA');
     error.statusCode = 400;
@@ -151,14 +152,15 @@ const getAvailableCampingZone = async (campId, startDate, endDate) => {
   }
 };
 
-const getUnavailableCampingZone = async (campId, availableZoneNames) => {
+const getAvailableCampingZone = async (campId, unavailableZoneNames) => {
   try {
-    const [unavailableZone] = await dataSource.query(
+    const [availableZone] = await dataSource.query(
       `${campingZoneQuery} 
-        WHERE cz.camp_id = ? AND NOT cz.zone_name IN (?)`,
-      [campId, availableZoneNames]
+    WHERE c.id = ? 
+    AND NOT cz.zone_name IN (?)`,
+      [campId, unavailableZoneNames]
     );
-    return unavailableZone;
+    return availableZone;
   } catch (error) {
     error = new Error('INVALID_DATA');
     error.statusCode = 400;

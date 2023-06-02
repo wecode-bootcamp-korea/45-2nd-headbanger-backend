@@ -170,7 +170,6 @@ const getUserByid = async (userId) => {
       [userId]
     );
   } catch (error) {
-    console.log(error);
     error = new Error('INVALID_DATA');
     error.statusCode = 400;
     throw error;
