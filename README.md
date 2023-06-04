@@ -1,7 +1,16 @@
 # 45-2nd-headbanger-backend
-Back_End : 이지은, 장인석(Product_Manager), 탁호진(Project_Manager)
-Front_End : 김준섭, 김태원 , 이수빈 , 이소진
+<br>
+#### Back_End <br>
+- <a href="https://github.com/innichang">장인석(Inseok Chang)<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"></a>
+- <a href="YOUR_GITHUB_LINK_HERE">이지은<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"></a>
+- <a href="YOUR_GITHUB_LINK_HERE">탁호진<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"></a>
 
+#### Front_End <br>
+- <a href="YOUR_GITHUB_LINK_HERE">김태원<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"></a>
+- <a href="YOUR_GITHUB_LINK_HERE">김준섭<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"></a>
+- <a href="YOUR_GITHUB_LINK_HERE">이수빈<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"></a>
+- <a href="YOUR_GITHUB_LINK_HERE">이소진<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"></a>
+- 
 -------------
 ## 사용한 기술 스택
 
