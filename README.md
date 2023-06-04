@@ -1,6 +1,8 @@
 # 45-2nd-headbanger-backend
 <br>
-#### Back_End <br>
+
+#### Back_End
+
 - <a href="https://github.com/innichang">장인석(Inseok Chang)<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"></a>
 - <a href="YOUR_GITHUB_LINK_HERE">이지은<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"></a>
 - <a href="YOUR_GITHUB_LINK_HERE">탁호진<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"></a>
@@ -10,7 +12,7 @@
 - <a href="YOUR_GITHUB_LINK_HERE">김준섭<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"></a>
 - <a href="YOUR_GITHUB_LINK_HERE">이수빈<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"></a>
 - <a href="YOUR_GITHUB_LINK_HERE">이소진<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"></a>
-- 
+
 -------------
 ## 사용한 기술 스택
 
