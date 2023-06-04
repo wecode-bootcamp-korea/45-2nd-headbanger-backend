@@ -1,5 +1,5 @@
 # 45-2nd-headbanger-backend
-Back_End : 이지은, 장인석(Product_Maneger), 탁호진(Project_Maneger)
+Back_End : 이지은, 장인석(Product_Manager), 탁호진(Project_Manager)
 Front_End : 김준섭, 김태원 , 이수빈 , 이소진
 
 -------------
@@ -21,7 +21,7 @@ Front_End : 김준섭, 김태원 , 이수빈 , 이소진
 
 --------------
 
-팀이름 : HeadBagner
+팀이름 : HeadBanger
 
 - 개발자로서 소통을 중요시하는 팀 !
 - 마치 록 가수 처럼 다른 사람이 말하면 잘 듣고 이해하여 고개를 끄덕인다 라는 의미를 담고 있습니다.
