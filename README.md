@@ -3,44 +3,83 @@ Back_End : 이지은, 장인석(Product_Manager), 탁호진(Project_Manager)
 Front_End : 김준섭, 김태원 , 이수빈 , 이소진
 
 -------------
-사용한 기술 스택
+## 사용한 기술 스택
 
-
-
-[FE]
+#### [FE]
 
 <img width="390" alt="스크린샷 2023-06-02 오후 5 02 27" src="https://github.com/wecode-bootcamp-korea/45-2nd-headbanger-backend/assets/125236449/b926031c-2134-4372-9b89-e7bf332827ba">
 
-[BE]
+#### [BE]
+<div>
+  <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white">
+  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> 
+  <img src="https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=white">
+  <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+  <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white">
+  <img src="https://img.shields.io/badge/TypeORM-262627?style=for-the-badge&logo=TypeORM&logoColor=white">
+</div>
 
-<img width="440" alt="스크린샷 2023-06-02 오후 5 02 44" src="https://github.com/wecode-bootcamp-korea/45-2nd-headbanger-backend/assets/125236449/a477ce5c-0374-441b-80e8-ba6977bd0023">
+#### [TOOL]
 
-[TOOL]
-
-<img width="374" alt="스크린샷 2023-06-02 오후 5 03 02" src="https://github.com/wecode-bootcamp-korea/45-2nd-headbanger-backend/assets/125236449/d1d2be18-b1c5-4d66-8e90-b518c37735e3">
+<div>
+  <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+  <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
+  <img src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=Slack&logoColor=white">
+  <img src="https://img.shields.io/badge/Trello-0052CC?style=for-the-badge&logo=Trello&logoColor=white">
+  <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white">
+</div>
 
 --------------
 
-팀이름 : HeadBanger
+## 팀이름 : HeadBanger
 
-- 개발자로서 소통을 중요시하는 팀 !
+- 개발자로서 능동적인 소통을 중요시하는 팀 !
 - 마치 록 가수 처럼 다른 사람이 말하면 잘 듣고 이해하여 고개를 끄덕인다 라는 의미를 담고 있습니다.
 
---------------
 
-페이지 이름 : CVG
+- 페이지 이름 : CVG
 
-- CVG : Camping Very Good!
-- 코로나 종전 시대를 맞이하여 캠핑족들을 위한, 매일 매일 반복되는 피곤한 일상에서부터의 getaway
+## CVG : Camping Very Good!
+
+- 매일 매일 반복되는 피곤한 일상에서부터의 getaway
+
 - 잠시 동안만이라도, 평소 boundary에서 벗어나, 휴식을 취할 수 있는 기회를 제공
 
-- Product : 캠핑 존, 각 지역 캠핑 존
-- End User :꼭 휴가철만이 아니더라도, 가족들과 함께 떠나고 싶은 직장인들, 친구들과 함께 추억을 쌓으러 오는 대학생들,
-               느긋하게 자연을 즐기려는 장년층,남녀노소할 것 없이 모두가 즐기는 서비스,주 고객층(결제를 진행하는 사람)은 20중후반.
-- Tech : 로그인/회원가입을 위한 외부 api 이용, 동적 필터링 , 동적 nav , 결제 외부 api 이용 
+- <h4>Product</h4> : 캠핑 존, 각 지역 캠핑 존
+
+- <h4>End User</h4> :꼭 휴가철만이 아니더라도, 가족들과 함께 떠나고 싶은 직장인들, 
+            친구들과 함께 추억을 쌓으러 오는 대학생들,
+            느긋하게 자연을 즐기려는 장년층,
+            남녀노소할 것 없이 모두가 즐기는 서비스
+            주 고객층(결제를 진행하는 사람): 20중후반부터
+            
 --------------
 
-메인페이지 
+#### 로그인 페이지
+
+[FE]
+
+- 소셜로그인 api 로 구현
+- 
+
+[BE]
+
+- OAuth 2.0의 플로우를 사용한 Kakao RestAPI 방식의 소셜 로그인
+
+---------------
+
+#### 로그인 페이지
+
+[FE]
+
+- 소셜로그인 api 로 구현
+- 
+
+[BE]
+
+- OAuth 2.0의 플로우를 사용한 Kakao RestAPI 방식의 소셜 로그인
+
+#### 메인페이지 
 
 [FE]
 
@@ -58,7 +97,7 @@ Front_End : 김준섭, 김태원 , 이수빈 , 이소진
 --------------
 
 
-리스트 페이지
+#### 리스트 페이지
 
 [FE]
 
@@ -76,31 +115,19 @@ Front_End : 김준섭, 김태원 , 이수빈 , 이소진
 
 ---------------
 
-상품 상세 페이지
+#### 상품 상세 페이지
 
 [FE]
 
 - 
 [BE]
 
--
-
----------------
-
-로그인 페이지
-
-[FE]
-
-- 소셜로그인 api 로 구현
-- 
-
-[BE]
-
--
+- 레이더 차트 구현을 위한 Query를 사용한 평균값 계산
+- 프론트의 하드 코딩이 아닌, DB에서 보내주는 조감도와, 조감도의 각 좌표를 이용한, 예약 가능/불가능 Zone 표기
 
 --------------
 
-마이 페이지
+#### 마이 페이지
 
 [FE]
 -
@@ -111,7 +138,7 @@ Front_End : 김준섭, 김태원 , 이수빈 , 이소진
 
 --------------
 
-결제 페이지 
+#### 결제 페이지 
 
 [FE]
 
@@ -122,7 +149,7 @@ Front_End : 김준섭, 김태원 , 이수빈 , 이소진
 
 -------------
 
-리뷰 페이지
+#### 리뷰 페이지
 
 [FE]
 
